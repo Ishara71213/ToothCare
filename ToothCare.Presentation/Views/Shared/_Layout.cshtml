@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ToothCare.Presentation</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ToothCare.Presentation.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+
+    <style>
+        body{
+            background-color: #ecf0fa;
+        }
+        ul{
+            padding:0px;
+            margin:0px;
+        }
+        li {
+            list-style: none;
+        }
+        .navbar{
+            margin-left:240px;
+            height: 90px;
+        }
+        .sidebar{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            inset-inline-start: 0;
+            color: #031b4e;
+            width: 240px;
+            max-height: 100%;
+            z-index: 1024;
+            background: #fff;
+            -webkit-box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+            box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+            border-inline-end: 1px solid #eae8f1;
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+
+        .logo-container{
+            width:240px;
+            height:90px;
+            display:flex;
+            align-items:center;
+        }
+
+        .logo-container .logo-wrapper {
+            padding-left: 22px;
+        }
+        .side-menu-item{
+            padding-left:22px;
+            padding-top:10px;
+            padding-bottom:10px;
+            padding-right:20px;
+
+        }
+        .side-menu-item > a{
+            text-decoration: none;
+        }
+
+        .user-info-container{
+            display: flex;
+            width:240px;
+            justify-content: center;
+        }
+
+        .user-info {
+            display:flex;
+            flex-direction:column;
+            align-items: center;
+        }
+
+        .profile-avatar-containner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width:75px;
+            height: 75px;
+            border-radius: 500px;
+            margin: 0 auto 0px;
+            border: 2px solid #eae8f1;
+            box-shadow: 0px 5px 5px 0px rgba(44, 44, 44, 0.2);
+            padding: 3px;
+            background: #fff;
+        }
+
+        .container.dynamic-content{
+            padding-left: 240px;
+        }
+
+    </style>
+</head>
+<body>
+  @*   <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ToothCare.Presentation</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header> *@
+
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="left-sidebar" class="sidebar">
+        <div class="logo-container">
+            <div class="logo-wrapper">
+                 <img src="~/assets/icons/logo.svg" width="190" alt="logo icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Logo">
+            </div>
+        </div>
+        <div class="sidebar-scroll">
+            <div class="user-info-container">
+                <div class="user-info-wrapper ">
+                    <div class="profile-avatar-containner">
+                        <div class="profile-avatar-wrapper">
+                            <img src="~/assets/images/avatar/profile-image.png" width="65" alt="logo icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Logo">
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <h4 class="fw-semibold mt-3 mb-0">Petey Cruiser</h4>
+                        <span class="mb-0 text-muted">Premium Member</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                <nav class="sidebar-nav">
+                    <ul class="main-menu">
+                        <li class="side-menu-item">
+                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                                <span class="m-2">Appointments</span>
+                            </a>
+                        </li>
+                        <li class="side-menu-item">
+                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                                <span class="m-2">Appointments</span>
+                            </a>
+                        </li>
+                        <li class="side-menu-item">
+                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                                <span class="m-2">Appointments</span>
+                            </a>
+                        </li>
+                        <li class="side-menu-item">
+                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                                <span class="m-2">Appointments</span>
+                            </a>
+                        </li>
+                        <li class="side-menu-item">
+                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                                <span class="m-2">Appointments</span>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container dynamic-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+  @*   <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ToothCare.Presentation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer> *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

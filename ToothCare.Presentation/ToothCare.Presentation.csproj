@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extentions\**" />
+    <Content Remove="Extentions\**" />
+    <EmbeddedResource Remove="Extentions\**" />
+    <None Remove="Extentions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="icons\form.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icons\form.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ToothCare.Application\ToothCare.Application.csproj" />
+    <ProjectReference Include="..\ToothCare.Infrastructure\ToothCare.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\" />
+  </ItemGroup>
+
+</Project>

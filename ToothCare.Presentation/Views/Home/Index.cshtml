@@ -1,0 +1,14 @@
+﻿@model GuidDataViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h1>GUID: @Model.Guid</h1>
+    <p>Timestamp: @Model.Timestamp</p>
+    <p>Message: @Model.Message</p>
+
+</div>
