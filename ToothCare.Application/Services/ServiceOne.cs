@@ -15,9 +15,9 @@ namespace ToothCare.Application.Services
         {
             _randomGuidRepository=randomGuidRepository;
         }
-        public void printSomething()
+        public Guid printSomething()
         {
-            Console.WriteLine(_randomGuidRepository.RandomGuid);
+            return _randomGuidRepository.RandomGuid;
         }
     }
 }

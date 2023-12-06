@@ -1,4 +1,4 @@
-﻿namespace ToothCare.Presentation.Models
+﻿namespace ToothCare.Presentation.Areas.Auth.Models
 {
     public class GuidDataViewModel
     {

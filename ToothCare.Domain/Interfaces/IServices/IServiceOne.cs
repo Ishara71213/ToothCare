@@ -8,6 +8,6 @@ namespace ToothCare.Domain.Interfaces.IServices
 {
     public interface  IServiceOne
     {
-        public void printSomething();
+        public Guid printSomething();
     }
 }

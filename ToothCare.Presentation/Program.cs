@@ -4,6 +4,7 @@ using ToothCare.Domain.Interfaces.IRepositories;
 using ToothCare.Domain.Interfaces.IServices;
 using ToothCare.Domain.IocFramework;
 using ToothCare.Infrastructure.Repositories;
+using ToothCare.Presentation.Areas.Auth.Controllers;
 using ToothCare.Presentation.Controllers;
 using ToothCare.Presentation.Extention;
 
@@ -17,18 +18,29 @@ namespace ToothCare.Presentation
 
             var services= new DiServiceCollection();
             //services.RegisterSingleton<RandomGuidGenerator>();
-            services.RegisterSingleton<IServiceOne,ServiceOne>();
+            services.RegisterSingleton<IServiceOne, ServiceOne>();
             services.RegisterSingleton<IRandomGuidRepository, RandomGuidRepository>();
             services.RegisterTransient<HomeController>();
+            services.RegisterTransient<RegisterController>();
 
-            
+
             var container = services.GenerateContainer();
+
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddSession(options =>
+            {
+                options.Cookie.Name = ".ToothCarePortal.Session";
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             // Register the Custom DiControllerActivator
             builder.Services.AddSingleton<IControllerActivator>(provider =>
                 new DiControllerActivator(container));
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            
 
             var app = builder.Build();
 
@@ -46,10 +58,24 @@ namespace ToothCare.Presentation
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
+            app.UseRouteGuard();
+            app.UseHandleEndpointRouting();
 
-            app.MapControllerRoute(
+            /*app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapControllerRoute(
+                  name: "default",
+                  pattern: "{controller=Home}/{action=Index}/{id?}");
+            });*/
+            /*app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");*/
 
             app.Run();
         }

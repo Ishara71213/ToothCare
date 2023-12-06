@@ -12,6 +12,7 @@
 
     <style>
         body{
+            font-family: "Roboto", sans-serif;
             background-color: #ecf0fa;
         }
         ul{
@@ -58,14 +59,23 @@
             padding-right:20px;
 
         }
+
         .side-menu-item > a{
             text-decoration: none;
+        }
+
+        .side-menu_label {
+            color: #5b6e88;
+            font-size: 14px;
+            line-height: 1;
+            font-weight: 400;
         }
 
         .user-info-container{
             display: flex;
             width:240px;
             justify-content: center;
+            padding:15px 0;
         }
 
         .user-info {
@@ -88,6 +98,15 @@
             background: #fff;
         }
 
+        .user-info-container .user-info h4 {
+            color: #031b4e;
+            font-size: 15px;
+        }
+
+        .user-info-container .user-info .text-muted {
+            color: #7987a1 !important;
+            font-size: 13px;
+        }
         .container.dynamic-content{
             padding-left: 240px;
         }
@@ -164,31 +183,31 @@
                         <li class="side-menu-item">
                             <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2">Appointments</span>
+                                <span class="m-2 side-menu_label">Appointments</span>
                             </a>
                         </li>
                         <li class="side-menu-item">
                             <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2">Appointments</span>
+                                <span class="m-2 side-menu_label">Appointments</span>
                             </a>
                         </li>
                         <li class="side-menu-item">
                             <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2">Appointments</span>
+                                <span class="m-2 side-menu_label">Appointments</span>
                             </a>
                         </li>
                         <li class="side-menu-item">
                             <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2">Appointments</span>
+                                <span class="m-2 side-menu_label">Appointments</span>
                             </a>
                         </li>
                         <li class="side-menu-item">
                             <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2">Appointments</span>
+                                <span class="m-2 side-menu_label">Appointments</span>
                             </a>
                         </li>
                        

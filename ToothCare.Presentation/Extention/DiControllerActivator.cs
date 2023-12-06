@@ -24,8 +24,7 @@ namespace ToothCare.Presentation.Extention
 
         public void Release(ControllerContext context, object controller)
         {
-            // Optionally release resources held by the controller
-            // For example, dispose of IDisposable controllers
+            // Release resources held by the controller
             if (controller is IDisposable disposableController)
             {
                 disposableController.Dispose();

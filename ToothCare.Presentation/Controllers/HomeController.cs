@@ -24,19 +24,14 @@ namespace ToothCare.Presentation.Controllers
 
             _serviceOne.printSomething();
 
-            // Generate a new GUID
-            var newGuid = Guid.NewGuid();
-
-            // Create a strongly-typed model
+            var newGuid = _serviceOne.printSomething();
             var model = new GuidDataViewModel
             {
                 Guid = newGuid,
                 Timestamp = DateTime.UtcNow,
                 Message = "Hello, world!"
-                // Set other properties as needed
             };
 
-            // Pass the model to the "Index" view
             return View("Index", model);
         }
 
