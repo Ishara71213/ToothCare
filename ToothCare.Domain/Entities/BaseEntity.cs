@@ -11,10 +11,10 @@ namespace ToothCare.Domain.Entities
         public BaseEntity() { 
 
         }
-        private int Id { get; set; }
-        private DateTime CreatedOn { get; set; } = DateTime.UtcNow;
-        private int? CreatedBy { get; set; }
-        private DateTime? ModifiedOn { get; set; }
-        private int? ModifiedBy { get; set; }
+        public int Id { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
+        public int? CreatedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public int? ModifiedBy { get; set; }
     }
 }

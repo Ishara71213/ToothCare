@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Auth\Data\" />
-    <Folder Include="wwwroot\assets\images\" />
+    <Folder Include="wwwroot\assets\images\BackgroundImages\" />
   </ItemGroup>
 
 </Project>

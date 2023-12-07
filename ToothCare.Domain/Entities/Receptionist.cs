@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ToothCare.Domain.Entities
 {
-    internal class Receptionist
+    public class Staff : User
     {
+        public string Designation { get; set; } = null!;
     }
 }
