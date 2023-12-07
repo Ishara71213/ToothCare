@@ -12,7 +12,6 @@ namespace ToothCare.Presentation.Middleware
         public RouteGuardMiddleware(RequestDelegate next)
         {
             this.next = next;
-
         }
 
         public async Task Invoke(HttpContext context)
@@ -35,13 +34,13 @@ namespace ToothCare.Presentation.Middleware
                 {
                     await next.Invoke(context);
                 }
-                if (controllerName == "Login")
+                if (controllerName == "SignIn")
                 {
                     await next.Invoke(context);
                 }
                 else
                 {
-                    context.Response.Redirect("Auth/Register/Index");
+                    context.Response.Redirect("Auth/SignIn/Index");
                 }
             }
 

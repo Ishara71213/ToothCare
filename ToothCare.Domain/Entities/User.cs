@@ -12,8 +12,8 @@ namespace ToothCare.Domain.Entities
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string encryptedPassword { get; set; } = null!;
-        public int MobileNo { get; set; }
+        public string EncryptedPassword { get; set; } = null!;
+        public string MobileNo { get; set; } = null!;
         public string Address { get; set; } = null!;
     }
 }

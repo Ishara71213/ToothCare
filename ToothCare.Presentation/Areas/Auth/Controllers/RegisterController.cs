@@ -10,11 +10,11 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
     public class RegisterController : Controller
     {
         private readonly IServiceOne _serviceOne;
-        private readonly IRandomGuidRepository _randomGuidRepository;
-        public RegisterController(IServiceOne serviceOne, IRandomGuidRepository randomGuidRepository)
+        private readonly IRegisterRepository _registerRepository;
+        public RegisterController(IServiceOne serviceOne, IRegisterRepository registerRepository)
         {
             _serviceOne = serviceOne;
-            _randomGuidRepository = randomGuidRepository;
+            _registerRepository = registerRepository;
         }
 
         public IActionResult Index()
@@ -35,14 +35,23 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel registerData)
+        public async Task<IActionResult> Register(RegisterViewModel registerData)
         {
-            
-            var model = new RegisterViewModel
+
+            var model = new Staff
             {
+                Id=1,
+                FirstName = registerData.FirstName,
+                LastName = registerData.LastName,
+                Email = registerData.Email,
+                Address = registerData.Address,
+                EncryptedPassword = registerData.Password,
+                MobileNo = registerData.MobileNo,
+                CreatedOn = DateTime.Now,
 
             };
 
+            await _registerRepository.RegisterUser(model);
             return RedirectToAction("Index");
         }
     }

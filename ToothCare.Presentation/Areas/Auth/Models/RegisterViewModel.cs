@@ -7,7 +7,7 @@
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string ConfirmPassword { get; set; } = null!;
-        public int MobileNo { get; set; }
+        public string MobileNo { get; set; } = null!;
         public string Address { get; set; } = null!;
     }
 }

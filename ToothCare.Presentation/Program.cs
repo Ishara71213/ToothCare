@@ -16,14 +16,9 @@ namespace ToothCare.Presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var services= new DiServiceCollection();
-            //services.RegisterSingleton<RandomGuidGenerator>();
-            services.RegisterSingleton<IServiceOne, ServiceOne>();
-            services.RegisterSingleton<IRandomGuidRepository, RandomGuidRepository>();
-            services.RegisterTransient<HomeController>();
-            services.RegisterTransient<RegisterController>();
-
-
+            //var services= new DiServiceCollection();
+            var services= DependencyInjectionExtention.GetRegsiteredDependencies();
+            
             var container = services.GenerateContainer();
 
             builder.Services.AddHttpContextAccessor();
