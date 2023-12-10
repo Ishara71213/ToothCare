@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
+using ToothCare.Domain.DataStructures;
 using ToothCare.Domain.Entities;
 
 namespace ToothCare.Infrastructure.Data
@@ -16,8 +17,8 @@ namespace ToothCare.Infrastructure.Data
         }
         public async Task<int> getNextId<T>(string fileName) where T : BaseEntity
         {
-            List<T>? dataList =  await GetAllFromFile<T>(fileName);
-            return dataList == null ? 1 : dataList.Last().Id+=1;
+            CustomLinkedList<T>? dataList =  await GetAllFromFile<T>(fileName);
+            return dataList == null ? 1 : dataList.GetLast()!.Id+=1;
         }
         
         public async Task<bool> WriteToFile<T>(string fileName, T model) where T : BaseEntity
@@ -42,33 +43,33 @@ namespace ToothCare.Infrastructure.Data
                 return true;
             }catch (Exception ex)
             {
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
-        public async Task<List<T>?> GetAllFromFile<T>(string fileName)
+        public async Task<CustomLinkedList<T>?> GetAllFromFile<T>(string fileName)
         {
+
             string filePath = _baseFilePath + fileName + ".txt";
             string data = await File.ReadAllTextAsync(filePath);
             data= "["+data+"]";
-            List<T>? dataList = JsonConvert.DeserializeObject<List<T>>(data);
+            CustomLinkedList<T>? dataList = JsonConvert.DeserializeObject<CustomLinkedList<T>>(data);
+            int cnt =dataList!.Count;
             return dataList;
         }
 
-       /* public async Task<bool> UpdateRcordById<T>(string fileName, T model) where T: BaseEntity
+        /*public async Task<bool> UpdateRcordById<T>(string fileName, T model) where T : BaseEntity
         {
-            var lines = new StringBuilder();
-
             string filePath = _baseFilePath + fileName + ".txt";
+            string data = await File.ReadAllTextAsync(filePath);
+            data = "[" + data + "]";
+            List<T>? dataList = JsonConvert.DeserializeObject<List<T>>(data);
 
-            List<T>? dataList = await GetAllFromFile<T>(fileName);
-            dataList.Where((){ })
-
-            using (StreamWriter writer = new StreamWriter(filePath))
+            for (int i; i)
             {
-                writer.Write(lines.ToString());
-                return status;
+
             }
+
         }*/
 
         public async Task<bool> DeleteRcordById<T>(string fileName, int id)

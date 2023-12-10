@@ -10,18 +10,18 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
     public class RegisterController : Controller
     {
         private readonly IServiceOne _serviceOne;
-        private readonly IRegisterRepository _registerRepository;
-        public RegisterController(IServiceOne serviceOne, IRegisterRepository registerRepository)
+        private readonly IRegisterService _registerService;
+        public RegisterController(IServiceOne serviceOne, IRegisterService registerService)
         {
             _serviceOne = serviceOne;
-            _registerRepository = registerRepository;
+            _registerService = registerService;
         }
 
         public IActionResult Index()
         {
             _serviceOne.printSomething();
 
-            Patient patient = new Patient();
+            Patient patient = new();
             patient.Address = "test address";
             patient.CreatedOn= DateTime.Now;
 
@@ -51,7 +51,7 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
 
             };
 
-            await _registerRepository.RegisterUser(model);
+            await _registerService.RegisterUser(model);
             return RedirectToAction("Index");
         }
     }

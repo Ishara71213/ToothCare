@@ -41,14 +41,14 @@ namespace ToothCare.Presentation.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GuidData()
+       /* public  Task<IActionResult> GuidData()
         {
             _serviceOne.printSomething();
             var data =  new { 
                 guid = Guid.NewGuid()
         };
             return new JsonResult(data);
-        }
+        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
