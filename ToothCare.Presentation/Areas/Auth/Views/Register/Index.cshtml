@@ -1,6 +1,10 @@
 ﻿@model RegisterViewModel;
 @{
     ViewData["Title"] = "Auth Page";
+    
+    //var registerData = TempData["RegisterData"] as RegisterViewModel;
+    var errorMessage = TempData["ErrorMessage"] as string;
+
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -107,6 +111,12 @@
                         <div class="logo-container">
                             <img src="../../assets/icons/logo.svg" alt="logo" />
                         </div>
+                        @if (errorMessage != null)
+                        {
+                            <div class="alert alert-danger">
+                                @errorMessage
+                            </div>
+                        }
                         <form asp-controller="Register" asp-action="Register" method="post">
                             <div class="from-group-inline">
                                 <div class="form-group">

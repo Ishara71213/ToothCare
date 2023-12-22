@@ -1,6 +1,8 @@
 ﻿@model RegisterViewModel;
 @{
     ViewData["Title"] = "Auth Page";
+    var successMessage = ViewBag.message as string;
+    var errorMessage = ViewBag.message as string;
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -115,6 +117,18 @@
                             <div class="logo-container">
                                 <img src="../../assets/icons/logo.svg" alt="logo" />
                             </div>
+                            @if (errorMessage != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @errorMessage
+                                </div>
+                            }
+                            @if (successMessage != null)
+                            {
+                                <div class="alert alert-success">
+                                    @successMessage
+                                </div>
+                            }
                             <form asp-controller="SignIn" asp-action="SignIn" method="post">
 
                                 <div class="form-group">

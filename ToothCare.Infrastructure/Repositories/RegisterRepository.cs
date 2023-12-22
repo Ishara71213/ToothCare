@@ -35,14 +35,26 @@ namespace ToothCare.Infrastructure.Repositories
             }
 
             bool result = await _dbContext.WriteToFile<Staff>(DbFileNames.Staff, user);
-            //await _dbContext.DeleteRcordById<Staff>(DbFileNames.Staff, 7);
             if (!result) throw new Exception("Something Went Wrong");
             return user;
         }
 
-        public Task<bool> ValidateUser(Staff user)
+        public async Task<bool> ValidateUser(Staff user)
         {
-            throw new NotImplementedException();
+            CustomLinkedList<Staff>? staffList = await _dbContext.GetAllFromFile<Staff>(DbFileNames.Staff);
+            
+            if (staffList == null) return true;
+
+            Staff? search=  staffList!.Where(x=>x.MobileNo==user.MobileNo || x.Email == user.Email).FirstOrDefault();
+
+            if (search != null)
+            {
+                if (search.MobileNo == user.MobileNo) throw new Exception("Mobile No Already Exist");
+
+                if (search.Email == user.Email) throw new Exception("Email Already Exist");
+            }
+            return true;
+
         }
     }
 }

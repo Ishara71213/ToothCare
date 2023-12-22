@@ -9,5 +9,6 @@ namespace ToothCare.Domain.Constatnts
     public static class DbFileNames
     {
         public static string Staff = "Staff";
+
     }
 }

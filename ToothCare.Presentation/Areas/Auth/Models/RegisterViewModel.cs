@@ -9,5 +9,6 @@
         public string ConfirmPassword { get; set; } = null!;
         public string MobileNo { get; set; } = null!;
         public string Address { get; set; } = null!;
+
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Newtonsoft.Json;
 using ToothCare.Domain.DataStructures;
 using ToothCare.Domain.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ToothCare.Infrastructure.Data
 {
@@ -71,6 +72,28 @@ namespace ToothCare.Infrastructure.Data
             }
 
         }*/
+
+        public async Task<T?> GetRcordById<T>(string fileName, int id)
+        {
+            
+            T? result = default;
+            string query = "\"Id\":" + id.ToString();
+
+            string filePath = _baseFilePath + fileName + ".txt";
+            using (StreamReader reader = new StreamReader(filePath, true))
+            {
+                string? line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    if (line.Contains(query))
+                    {
+                        result = JsonConvert.DeserializeObject<T>(line);
+                    }
+                }
+            }
+            return result;
+
+        }
 
         public async Task<bool> DeleteRcordById<T>(string fileName, int id)
         {

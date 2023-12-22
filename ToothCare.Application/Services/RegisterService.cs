@@ -18,6 +18,12 @@ namespace ToothCare.Application.Services
         }
         public async Task<Staff> RegisterUser(Staff user)
         {
+            bool isValidated= await _registerRepository.ValidateUser(user);
+            if (!isValidated)
+            {
+               
+            }
+
             return await _registerRepository.RegisterUser(user);
         }
 
