@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToothCare.Domain.Entities;
-using ToothCare.Domain.Interfaces.IRepositories;
 using ToothCare.Domain.Interfaces.IServices;
 using ToothCare.Presentation.Areas.Auth.Models;
 
@@ -9,31 +8,32 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
     [Area("Auth")]
     public class RegisterController : Controller
     {
-        private readonly IServiceOne _serviceOne;
         private readonly IRegisterService _registerService;
-        public RegisterController(IServiceOne serviceOne, IRegisterService registerService)
+        private readonly IAuthService _authService;
+        public RegisterController(IAuthService authService, IRegisterService registerService)
         {
-            _serviceOne = serviceOne;
             _registerService = registerService;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
             var errorMessage = TempData["ErrorMessage"] as string;
 
-            /*_serviceOne.printSomething();
-
-            Patient patient = new();
-            patient.Address = "test address";
-            patient.CreatedOn= DateTime.Now;
-
-            var newGuid = _serviceOne.printSomething();*/
             var model = new RegisterViewModel
             {
-                
+
             };
 
-            return View("~/Areas/Auth/Views/Register/Index.cshtml", model);
+            if (_authService.IsAuthenticated())
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            else
+            {
+                return View("~/Areas/Auth/Views/Register/Index.cshtml", model);
+            }
+            
         }
 
         [HttpPost]
@@ -55,14 +55,14 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
                 };
 
                 await _registerService.RegisterUser(model);
-                return RedirectToAction("Index", "SignIn", new { message = "User Created Succesfully" } );
+                return RedirectToAction("Index", "SignIn", new { message = "User Created Succesfully" });
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            
+
         }
     }
 }

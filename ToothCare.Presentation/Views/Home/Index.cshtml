@@ -1,14 +1,18 @@
-﻿@model GuidDataViewModel
+﻿@using ToothCare.Domain.Entities;
+@model HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["User"] = Model.User;
+    ViewData["UserName"] = Model.User.FirstName + " " + Model.User.LastName;
+    ViewData["UserDesignation"] = Model.User.Designation;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-    <h1>GUID: @Model.Guid</h1>
-    <p>Timestamp: @Model.Timestamp</p>
-    <p>Message: @Model.Message</p>
+    <h1>Email: @Model.User.Email</h1>
+    <p>First Name:@Model.User.FirstName</p>
+    <p>Last Name: @Model.User.LastName</p>
 
 </div>

@@ -1,6 +1,4 @@
-﻿
-using ToothCare.Domain.Constatnts;
-using ToothCare.Domain.DataStructures;
+﻿using ToothCare.Domain.DataStructures;
 using ToothCare.Domain.Entities;
 using ToothCare.Domain.Interfaces.IRepositories;
 using ToothCare.Infrastructure.Data;

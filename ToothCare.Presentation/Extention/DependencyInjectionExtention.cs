@@ -15,18 +15,20 @@ namespace ToothCare.Presentation.Extention
         {
             var services = new DiServiceCollection();
             services.RegisterSingleton<DbContext>();
-            services.RegisterSingleton<IServiceOne, ServiceOne>();
-            services.RegisterSingleton<IRandomGuidRepository, RandomGuidRepository>();
 
             //Register Repositories
             services.RegisterTransient<IRegisterRepository,RegisterRepository>();
+            services.RegisterSingleton<IAuthRepository,AuthRepository>();
 
             //Register Services
             services.RegisterTransient<IRegisterService, RegisterService>();
+            services.RegisterSingleton<IAuthService, AuthService>();
+
             //Register Controllers
             services.RegisterTransient<HomeController>();
             services.RegisterTransient<RegisterController>();
             services.RegisterTransient<SignInController>();
+            services.RegisterTransient<UserSessionController>();
 
             return services;
         }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using ToothCare.Application.Services;
-using ToothCare.Domain.Interfaces.IRepositories;
+using ToothCare.Domain.Entities;
 using ToothCare.Domain.Interfaces.IServices;
 using ToothCare.Presentation.Models;
 
@@ -9,46 +8,49 @@ namespace ToothCare.Presentation.Controllers
 {
     public class HomeController : Controller
     {
-       // private readonly ILogger<HomeController> _logger;
-        private readonly IServiceOne _serviceOne;
-        private readonly IRandomGuidRepository _randomGuidRepository;
+        // private readonly ILogger<HomeController> _logger;
+        private readonly IAuthService _authService;
 
-        public HomeController(IServiceOne serviceOne , IRandomGuidRepository randomGuidRepository)
+        public HomeController(IAuthService authService)
         {
-            _serviceOne = serviceOne;
-            _randomGuidRepository = randomGuidRepository;
+            _authService = authService;
         }
 
         public IActionResult Index()
         {
 
-            _serviceOne.printSomething();
-
-            var newGuid = _serviceOne.printSomething();
-            var model = new GuidDataViewModel
+            /*
+                        var model = new GuidDataViewModel
+                        {
+                            Guid = newGuid,
+                            Timestamp = DateTime.UtcNow,
+                            Message = "Hello, world!"
+                        };*/
+            HomeViewModel model =new HomeViewModel();
+            model.User = new Staff();
+            var user = _authService.GetCurrentUser();
+            if (user != null)
             {
-                Guid = newGuid,
-                Timestamp = DateTime.UtcNow,
-                Message = "Hello, world!"
-            };
-
+                model.User = user;
+            }
             return View("Index", model);
+
+
         }
 
         public IActionResult Privacy()
         {
-
             return View();
         }
 
-       /* public  Task<IActionResult> GuidData()
-        {
-            _serviceOne.printSomething();
-            var data =  new { 
-                guid = Guid.NewGuid()
-        };
-            return new JsonResult(data);
-        }*/
+        /* public  Task<IActionResult> GuidData()
+         {
+             _serviceOne.printSomething();
+             var data =  new { 
+                 guid = Guid.NewGuid()
+         };
+             return new JsonResult(data);
+         }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

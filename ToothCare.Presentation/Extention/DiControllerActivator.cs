@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using ToothCare.Domain.IocFramework;
 
 namespace ToothCare.Presentation.Extention
 {
-    public class DiControllerActivator : IControllerActivator
+    public class DiControllerActivator : IControllerActivator 
     {
         private readonly IDiContainer _diContainer;
 

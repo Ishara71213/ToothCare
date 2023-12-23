@@ -2,7 +2,8 @@
 
 namespace ToothCare.Domain.IocFramework
 {
-    public class DiServiceCollection
+    //: IDiCollection
+    public class DiServiceCollection 
     {
         private List<ServiceDescriptor> _serviceDescriptors = new List<ServiceDescriptor>();
         public void RegisterSingleton<TService>()

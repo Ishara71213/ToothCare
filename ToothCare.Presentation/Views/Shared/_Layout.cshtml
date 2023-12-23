@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -162,8 +164,10 @@
                         </div>
                     </div>
                     <div class="user-info">
-                        <h4 class="fw-semibold mt-3 mb-0">Petey Cruiser</h4>
-                        <span class="mb-0 text-muted">Premium Member</span>
+                        <h4 class="fw-semibold mt-3 mb-0">@ViewData["UserName"]</h4>
+                        <span class="mb-0 text-muted">@ViewData["UserDesignation"]</span>
+                        @* <h4 class="fw-semibold mt-3 mb-0">Petey Cruiser</h4>
+                        <span class="mb-0 text-muted">Premium Member</span> *@
                     </div>
                 </div>
             </div>
@@ -195,9 +199,9 @@
                             </a>
                         </li>
                         <li class="side-menu-item">
-                            <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                            <a class="text-dark" asp-area="" asp-controller="UserSession" asp-action="SignOutUser">
                                 <img src="~/assets/icons/form.svg" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
-                                <span class="m-2 side-menu_label">Appointments</span>
+                                <span class="m-2 side-menu_label">Sign Out</span>
                             </a>
                         </li>
                        

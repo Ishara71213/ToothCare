@@ -54,7 +54,7 @@ namespace ToothCare.Presentation
 
             app.UseAuthorization();
             app.UseSession();
-            app.UseRouteGuard();
+            app.UseRouteGuard(container);
             app.UseHandleEndpointRouting();
 
             /*app.UseEndpoints(endpoints =>

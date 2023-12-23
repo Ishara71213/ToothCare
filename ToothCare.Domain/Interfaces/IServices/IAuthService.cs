@@ -9,9 +9,13 @@ namespace ToothCare.Domain.Interfaces.IServices
 {
     public interface IAuthService
     {
-        public Task<bool> IsAuthenticated();
+        public Task<Staff> SignIn(string email, string password);
 
-        public Task<Staff> GetCurrentUser();
+        public void SignOut();
+
+        public bool IsAuthenticated();
+
+        public Staff? GetCurrentUser();
 
         public Task<Staff> SetCurrentUser(Staff staff);
     }
