@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ToothCare.Domain.Builders;
 using ToothCare.Domain.Interfaces.Common;
 
 namespace ToothCare.Domain.Entities
@@ -23,7 +24,7 @@ namespace ToothCare.Domain.Entities
 
         }
 
-        public User(string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address)
+        internal User(string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address)
             : base()
         {
 
@@ -34,7 +35,7 @@ namespace ToothCare.Domain.Entities
             this.mobileNo = mobileNo;
             this.address = address;
         }
-        public User(int id, string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address)
+        internal User(int id, string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address)
             : base(id)
         {
 
@@ -46,7 +47,7 @@ namespace ToothCare.Domain.Entities
             this.address = address;
         }
 
-        public User(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address) 
+        internal User(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address) 
             : base(id, createdOn, createdBy, modifiedBy, modifiedOn)
         {
 
@@ -118,6 +119,7 @@ namespace ToothCare.Domain.Entities
             this.address = address;
         }
 
+        //overides the to string and generate string as json format
         public override string ToString()
         {
             string resultBase = $"\"id\":\"{this.id}\", \"createdOn\":\"{this.createdOn}\", \"createdBy\":\"{this.createdBy}\", \"modifiedOn\":\"{this.modifiedOn}\", \"modifiedBy\":\"{this.modifiedBy}\", ";
@@ -127,6 +129,7 @@ namespace ToothCare.Domain.Entities
             return result;
         }
 
+        //From json method will create Instance from the corresponding json string
         public override User FromJson(string json)
         {
             if (!json.Contains("id"))
@@ -135,7 +138,36 @@ namespace ToothCare.Domain.Entities
             }
 
             dynamic jsonData = JsonConvert.DeserializeObject(json)!;
-            User user = new User(jsonData.id, jsonData.createdOn, jsonData.createdBy, jsonData.modifiedOn, jsonData.modifiedBy, jsonData.firstName, jsonData.lastName, jsonData.email, jsonData.encryptedPassword, jsonData.mobileNo, jsonData.address);
+
+            int id = jsonData.id != "" ? jsonData.id : 0;
+            DateTime? createdOn = jsonData.createdOn != "" ? jsonData.createdOn : null;
+            DateTime? modifiedOn = jsonData.modifiedOn != "" ? jsonData.modifiedOn : null;
+            int? createdBy = jsonData.createdBy != "" ? jsonData.createdBy : null;
+            int? modifiedBy = jsonData.modifiedBy != "" ? jsonData.modifiedBy : null;
+
+            string firstName = jsonData.firstName;
+            string lastName = jsonData.lastName;
+            string email = jsonData.email;
+            string encryptedPassword = jsonData.encryptedPassword;
+            string mobileNo = jsonData.mobileNo;
+            string address = jsonData.address;
+
+            UserBuilder builder = new UserBuilder();
+
+            builder.SetFirstName(firstName);
+            builder.SetLastName(lastName);
+            builder.SetEmail(email);
+            builder.SetAddress(address);
+            builder.SetEncryptedPassword(encryptedPassword);
+            builder.SetMobileNo(mobileNo);
+
+            builder.SetId(id);
+            builder.SetCreatedOn(createdOn);
+            builder.SetCreatedBy(createdBy);
+            builder.SetModifiedOn(modifiedOn);
+            builder.SetModifiedBy(modifiedBy);
+
+            User user = builder.Build();
             return user;
         }
     }

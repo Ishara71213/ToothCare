@@ -9,5 +9,6 @@ namespace ToothCare.Domain.Interfaces.Common
     public interface IJsonConvertible<T>
     {
         T FromJson(string json);
+         string ToString();
     }
 }

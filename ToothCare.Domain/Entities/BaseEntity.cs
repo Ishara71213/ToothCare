@@ -10,7 +10,8 @@ using ToothCare.Domain.Interfaces.Common;
 
 namespace ToothCare.Domain.Entities
 {
-
+    //Every class will Extends from this base class 
+    // IJsonConvertible responsible to enforce the implement Tostring and From json methods
     public class BaseEntity : IJsonConvertible<BaseEntity>
     {
         protected int id;
@@ -23,13 +24,14 @@ namespace ToothCare.Domain.Entities
         {
         }
 
-        public BaseEntity(int id)
+        //Constructors internal because object creation is centerlized into the Builders
+        // these constructors will not be used other Assemblies
+        internal BaseEntity(int id)
         {
             this.id = id;
         }
 
-
-        public BaseEntity(int id, DateTime? createdOn,  int? createdBy, int? modifiedBy, DateTime? modifiedOn ) { 
+        internal BaseEntity(int id, DateTime? createdOn,  int? createdBy, int? modifiedBy, DateTime? modifiedOn ) { 
             this.id = id;
             this.createdOn = createdOn;
             this.createdBy = createdBy;
@@ -87,6 +89,7 @@ namespace ToothCare.Domain.Entities
             this.modifiedBy = modifiedBy;
         }
 
+        //overides the to string and generate string as json format
         public override string ToString()
         {
             string resultBase = $"\"id\":\"{this.id}\", \"createdOn\":\"{this.createdOn}\", \"createdBy\":\"{this.createdBy}\", \"modifiedOn\":\"{this.modifiedOn}\", \"modifiedBy\":\"{this.modifiedBy}\"";
@@ -95,6 +98,8 @@ namespace ToothCare.Domain.Entities
             return result;
         }
 
+        //From json method will create Instance from the corresponding json string
+        // This Method is Virtual because every child classes will Overide this method 
         public virtual BaseEntity FromJson(string data)
         {
 

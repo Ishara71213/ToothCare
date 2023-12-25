@@ -15,7 +15,7 @@ namespace ToothCare.Infrastructure.Data
             string currentDirectory = Directory.GetCurrentDirectory();
             _baseFilePath = currentDirectory.Replace("ToothCare.Presentation", "ToothCare.Infrastructure") + "\\DataBase\\" ;
         }
-        public async Task<int> getNextId<T>(string fileName) where T : BaseEntity
+        public async Task<int> GetNextId<T>(string fileName) where T : BaseEntity
         {
             CustomLinkedList<T>? dataList =  await GetAllFromFile<T>(fileName);
             int nextId = 1;
@@ -35,7 +35,7 @@ namespace ToothCare.Infrastructure.Data
                 string filePath = _baseFilePath + fileName + ".txt";
                 if (File.Exists(filePath))
                 {
-                    model.SetId(await getNextId<T>(fileName));
+                    model.SetId(await GetNextId<T>(fileName));
                 }
                 else
                 {

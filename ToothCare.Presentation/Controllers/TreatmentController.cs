@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ToothCare.Application.Services;
+using ToothCare.Domain.Builders;
 using ToothCare.Domain.Entities;
 using ToothCare.Domain.Interfaces.IServices;
 using ToothCare.Presentation.Models;
@@ -33,9 +34,17 @@ namespace ToothCare.Presentation.Controllers
         {
             try
             {
-                Treatment entity = new Treatment(model.Name, model.Price, model.AvarageMinutesPerSession);
-                entity.SetCreatedBy(_authService.GetCurrentUser()!.GetId());
-                entity.SetCreatedOn(DateTime.Now);
+                TreatmentBuilder builder = new TreatmentBuilder();
+
+                builder.SetName(model.Name);
+                builder.SetPrice(model.Price);
+                builder.SetAverageMinutesPerSession(model.AvarageMinutesPerSession);
+
+                builder.SetId(model.Id);
+                builder.SetCreatedBy(_authService.GetCurrentUser()!.GetId());
+                builder.SetCreatedOn(DateTime.Now);
+
+                Treatment entity = builder.Build();
 
                 await _treatmentService.AddAsync(entity);
                 return RedirectToAction("Index", "Treatment", new { message = "Record Added Succesfully" });
@@ -53,9 +62,17 @@ namespace ToothCare.Presentation.Controllers
         {
             try
             {
-                Treatment entity = new Treatment(model.Id, model.Name, model.Price, model.AvarageMinutesPerSession);
-                entity.SetModifiedBy(_authService.GetCurrentUser()!.GetId());
-                entity.SetModifiedOn(DateTime.Now);
+                TreatmentBuilder builder = new TreatmentBuilder();
+
+                builder.SetName(model.Name);
+                builder.SetPrice(model.Price);
+                builder.SetAverageMinutesPerSession(model.AvarageMinutesPerSession);
+
+                builder.SetId(model.Id);
+                builder.SetModifiedBy(_authService.GetCurrentUser()!.GetId());
+                builder.SetModifiedOn(DateTime.Now);
+
+                Treatment entity = builder.Build();
 
                 await _treatmentService.UpdateAsync(entity);
                 return RedirectToAction("Index", "Treatment", new { message = "Record Updated Succesfully" });
