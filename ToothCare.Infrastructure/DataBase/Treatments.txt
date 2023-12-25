@@ -1,1 +1,5 @@
-{"id":"1", "createdOn":"12/25/2023 4:52:32 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Cleanings", "price":"45", "averageMinutesPerSession":"45"}
+{"id":"1", "createdOn":"12/25/2023 10:50:03 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Cleanings", "price":"2500", "averageMinutesPerSession":"30"}
+{"id":"2", "createdOn":"12/25/2023 10:51:18 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Whitening", "price":"1500", "averageMinutesPerSession":"15"}
+{"id":"3", "createdOn":"12/25/2023 10:52:52 PM", "createdBy":"", "modifiedOn":"12/25/2023 10:52:52 PM", "modifiedBy":"1", "name":"Filling", "price":"3000", "averageMinutesPerSession":"30"}
+{"id":"4", "createdOn":"12/25/2023 10:52:37 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Nerve Filling", "price":"15000", "averageMinutesPerSession":"60"}
+{"id":"5", "createdOn":"12/25/2023 10:54:17 PM", "createdBy":"", "modifiedOn":"12/25/2023 10:54:17 PM", "modifiedBy":"1", "name":"Root Canal Therapy ", "price":"18000", "averageMinutesPerSession":"60"}

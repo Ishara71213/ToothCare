@@ -17,13 +17,14 @@ namespace ECCMS.Infrastructure.Repositories
             _dbTable = dbTable;
         }
 
-        async Task IGenericRepository<T>.AddAsync(T entity)
+        async Task<T?> IGenericRepository<T>.AddAsync(T entity)
         {
-            bool result = await _dbContext.WriteToFile<T>(_dbTable, entity);
-            if (result!)
+            T? result = await _dbContext.WriteToFile<T>(_dbTable, entity);
+            if (result == null)
             {
                 throw new Exception("Failed to write to Data base");
             }
+            return result;
         }
 
         async Task<CustomLinkedList<T>> IGenericRepository<T>.GetAllAsync()

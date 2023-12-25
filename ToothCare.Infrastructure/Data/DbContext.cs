@@ -26,7 +26,7 @@ namespace ToothCare.Infrastructure.Data
             return nextId;
         }
         
-        public async Task<bool> WriteToFile<T>(string fileName, T model) where T : BaseEntity 
+        public async Task<T?> WriteToFile<T>(string fileName, T model) where T : BaseEntity 
         {
             try
             {
@@ -48,10 +48,10 @@ namespace ToothCare.Infrastructure.Data
                     await writer.WriteLineAsync(stringData);
                    // await writer.WriteLineAsync(stringData+",");
                 }
-                return true;
+                return model;
             }catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return default;
             }
         }
 

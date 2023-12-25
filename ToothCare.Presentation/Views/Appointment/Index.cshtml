@@ -1,10 +1,11 @@
 ﻿@using ToothCare.Domain.Entities;
-@model TreatmentViewModel
+@model AppointmentViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Appointments";
     ViewData["User"] = Model.User;
     ViewData["UserName"] = Model?.User?.GetFirstName() + " " + Model?.User?.GetLastName();
     ViewData["UserDesignation"] = Model?.User?.GetDesignation();
+
 }
 
 
@@ -12,7 +13,7 @@
     <div class="top-section">
         <div class="col-lg-6 col-md-8 col-sm-12">
             <h2 class="breadcrumb-header">
-                Treatment
+                Appointent
             </h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -20,7 +21,7 @@
                         <img src="~/assets/icons/home.png" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
                     </a>
                 </li>
-                <li class="breadcrumb-item">Treatment</li>
+                <li class="breadcrumb-item">Appointent</li>
             </ul>
         </div>
         <div class="add-button-container">
@@ -29,63 +30,116 @@
             </a>
         </div>
     </div>
-   @*  <div class="add-data-section" id="addDataSection">
-        <form asp-controller="Treatment" asp-action="Save" method="post">
+
+     <div class="add-data-section" id="addDataSection">
+        
             <div class="from-group-inline">
                 <div class="form-group">
                     <label for="TreatmentName" class="form-label">Treatment Name</label>
-                    <input type="text" class="form-control" asp-for="Name" placeholder="Treatment Name" required>
+                    <input type="text" class="form-control" placeholder="Treatment Name" required>
                 </div>
                 <div class="form-group">
                     <label for="TreatmentPrice" class="form-label">Treatment Price</label>
-                    <input type="text" class="form-control" asp-for="Price" placeholder="Treatment Price" required>
+                    <input type="text" class="form-control"  placeholder="Treatment Price" required>
                 </div>
                 <div class="form-group">
                     <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
-                    <input type="number" class="form-control" asp-for="AvarageMinutesPerSession" placeholder="Average Time" required>
+                    <input type="number" class="form-control"  placeholder="Average Time" required>
                 </div>
             </div>
             <div class="search-btn-container">
                 <input class="search-btn" type="submit" value="Search" />
             </div>
-        </form>
-    </div> *@
+    </div>
     <div class="table-outer-container">
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>
+                            Id
+                        </th>
+                        <th>
+                            Patient Name
+                        </th>
+                        <th>
+                            Doctor Name
+                        </th>
+                        <th>
                             Treatment Name
                         </th>
                         <th>
-                            Treatment Price
+                            Appointment Date
                         </th>
                         <th>
-                            Average Time (min)
+                            Duration
                         </th>
                         <th>
-                            Action
+                            Confirmation
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Actons
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var b in Model!.AllList!)
                     {
+                        var id = b.GetId();
+                        var patientName = b!.patient!.GetFirstName() + b!.patient!.GetLastName();
+                        var doctorName = b!.doctor!.GetFirstName() + b!.doctor!.GetLastName();
+                        var treatmentName = b!.treatment!.GetName();
+                        var duration = b.GetDuration();
+                        var isConfirmed = b.GetIsConfirmed();
+                        var isComplete = b.GetIsComplete();
+                        var dateTime = b.GetDateTime();
+
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => b.name)
+                                @Html.DisplayFor(modelItem => id)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => b.price).00
+                                @Html.DisplayFor(modelItem => patientName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => b.averageMinutesPerSession)
+                                @Html.DisplayFor(modelItem => doctorName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => treatmentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => dateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => duration) Min
+                            </td>
+                            <td>
+                                @if (isConfirmed)
+                                {
+                                    <p class="text-success">Confirmed</p>
+                                }
+                                else{
+                                    <p class="text-danger">Pending</p>
+                                }
+                                    @* @Html.DisplayFor(modelItem => isConfirmed) @Html.DisplayFor(modelItem => isComplete) *@
+                            </td>
+                            <td>
+                                @if (isComplete)
+                                {
+                                    <p class="text-success">Complete</p>
+                                }
+                                else
+                                {
+                                    <p class="text-warning">Pending</p>
+                                }
                             </td>
                             <td>
                                 <div class="action-button-container">
                                     <div class="edit-btn">
-                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preEdit(@b)">
+                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preEdit(@b, @b!.patient, @b!.doctor, @b!.treatment )">
                                             <img style="height:25px" src="/assets/icons/edit.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
                                         </a>
                                     </div>
@@ -105,6 +159,6 @@
 </div>
 
 @section Scripts{
-    @await Html.PartialAsync("~/Views/Treatment/Script.cshtml")
+    @await Html.PartialAsync("~/Views/Appointment/Script.cshtml")
 }
-@await Html.PartialAsync("~/Views/Treatment/Save.cshtml")
+@await Html.PartialAsync("~/Views/Appointment/Save.cshtml")

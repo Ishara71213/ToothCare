@@ -18,13 +18,25 @@ namespace ToothCare.Domain.Entities
 
         private int duration;
 
+        private bool isConfirmed;
+
+        private bool isComplete;
+
         private DateTime dateTime;
+
+        public Doctor? doctor;
+
+        public Treatment? treatment;
+
+        public Patient? patient;
+
+        public Payment? payment;
 
         public Appointment() { }
 
         //Constructors internal because object creation is centerlized into the Builders
         //these constructors will not be used in other Assemblies
-        internal Appointment(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, int patientId, string patientName, int doctorId, int treatmentTypeId, int paymentId, int duration, DateTime dateTime )
+        internal Appointment(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, int patientId, string patientName, int doctorId, int treatmentTypeId, int paymentId, int duration, DateTime dateTime, bool isConfirmed, bool isComplete)
             : base(id, createdOn, createdBy, modifiedBy, modifiedOn)
         {
             this.patientId = patientId;
@@ -34,6 +46,8 @@ namespace ToothCare.Domain.Entities
             this.paymentId = paymentId;
             this.duration = duration;
             this.dateTime = dateTime;
+            this.isConfirmed = isConfirmed;
+            this.isComplete = isComplete;
         }
 
         public int GetPatientId()
@@ -106,11 +120,31 @@ namespace ToothCare.Domain.Entities
             this.dateTime = dateTime;
         }
 
+        public bool GetIsConfirmed()
+        {
+            return this.isConfirmed;
+        }
+
+        public void SetIsConfirmed(bool isConfirmed)
+        {
+            this.isConfirmed = isConfirmed;
+        }
+
+        public bool GetIsComplete()
+        {
+            return this.isComplete;
+        }
+
+        public void SetIsComplete(bool isComplete)
+        {
+            this.isComplete = isComplete;
+        }
+
         //overides the to string and generate string as json format
         public override string ToString()
         {
             string resultBase = $"\"id\":\"{this.id}\", \"createdOn\":\"{this.createdOn}\", \"createdBy\":\"{this.createdBy}\", \"modifiedOn\":\"{this.modifiedOn}\", \"modifiedBy\":\"{this.modifiedBy}\", ";
-            string resultAppointment = $"\"patientId\":\"{this.patientId}\", \"patientName\":\"{this.patientName}\", \"doctorId\":\"{this.doctorId}\", \"treatmentTypeId\":\"{this.treatmentTypeId}\", \"paymentId\":\"{this.paymentId}\", \"duration\":\"{this.duration}\", \"dateTime\":\"{this.dateTime}\"";
+            string resultAppointment = $"\"patientId\":\"{this.patientId}\", \"patientName\":\"{this.patientName}\", \"doctorId\":\"{this.doctorId}\", \"treatmentTypeId\":\"{this.treatmentTypeId}\", \"paymentId\":\"{this.paymentId}\", \"duration\":\"{this.duration}\", \"dateTime\":\"{this.dateTime}\", \"isConfirmed\":\"{this.isConfirmed}\", \"isComplete\":\"{this.isComplete}\"";
             
             string result = "{" + resultBase + resultAppointment + "}";
             return result;
@@ -138,7 +172,10 @@ namespace ToothCare.Domain.Entities
             int treatmentTypeId = jsonData.treatmentTypeId;
             int paymentId = jsonData.paymentId;
             int duration = jsonData.duration;
+            bool isConfirmed = jsonData.isConfirmed != "" ? jsonData.isConfirmed : null;
+            bool isComplete = jsonData.isComplete != "" ? jsonData.isComplete : null;  
             DateTime dateTime = jsonData.dateTime != "" ? jsonData.dateTime : null;
+           
 
             AppointmentBuilder builder = new AppointmentBuilder();
             builder.SetPatientId(patientId);
@@ -148,6 +185,9 @@ namespace ToothCare.Domain.Entities
             builder.SetTreatmentTypeId(treatmentTypeId);
             builder.SetPaymentId(paymentId);
             builder.SetDuration(duration);
+            builder.SetDuration(duration);
+            builder.SetIsConfirmed(isConfirmed);
+            builder.SetIsComplete(isComplete);
             builder.SetDateTime(dateTime);
 
             builder.SetId(id);

@@ -1,0 +1,78 @@
+﻿<script>
+    
+    function preAdd() {
+        $("#id").val('');
+        $("#firstName").val('');
+        $("#lastName").val('');
+        $("#email").val('');
+        $("#mobileNumber").val('');
+        $("#address").val('');
+        $("#illness").val('');
+        $("#alergies").val('');
+        $("#emergencyContact").val('');
+
+        $("#patientId").val('');
+        $("#patientName").val('');
+        $("#doctorId").val('');
+        $("#treatmentTypeId").val('');
+        $("#isConfirmed").val('');
+        $("#isComplete").val('');
+        $("#dateTime").val('');
+
+
+        $('#popup').modal('show');
+    }
+
+    // use to hide popup
+    function hidePopup() {
+        $('#popup').modal('hide');
+    }
+
+    function preEdit(model, patient, doctor, treatment) {
+        console.log(model);
+        $("#idEdit").val(model.id);
+
+        $("#firstNameEdit").val(patient.firstName);
+        $("#lastNameEdit").val(patient.lastName);
+        $("#emailEdit").val(patient.email);
+        $("#mobileNumberEdit").val(patient.mobileNo);
+        $("#addressEdit").val(patient.address);
+        $("#illnessEdit").val(patient.illness);
+        $("#alergiesEdit").val(patient.alergies);
+        $("#emergencyContactEdit").val(patient.emergencyContact);
+
+        $("#patientIdEdit").val(patient.id);
+        $("#patientNameEdit").val(patient.firstName);
+
+        $("#doctorIdEdit").val(doctor.id).trigger('change');
+        $("#treatmentTypeIdEdit").val(treatment.id);
+        $("#isConfirmedEdit").val(model.isConfirmed).trigger('change');
+        $("#isCompleteEdit").val('');
+        $("#dateTimeEdit").val(model.dateTime).trigger('change');
+
+        $('#popupEdit').modal('show');
+    }
+
+    // use to hide edit popup
+    function hideEditPopup() {
+        $('#popupEdit').modal('hide');
+    }
+
+
+    function deleteRecord(id) {
+        var url = '@Url.Content("~/")' + "Doctor/Delete/"+id; 
+        console.log(url);
+        $.post(url, { "Id": id }, function (data) {
+            if (data) {
+                console.log("Deleted succesfully");
+                location.reload();
+            } else {
+                console.log("Deleted failed");
+                location.reload();
+            }
+        });
+    }
+
+
+
+</script>

@@ -1,0 +1,303 @@
+﻿@using ToothCare.Domain.Entities;
+@model AppointmentViewModel
+
+<style>
+    .dialog-size {
+        max-width: 1000px;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: space-evenly;
+        
+    }
+
+    .form-left, .form-right {
+        max-width: 450px;
+        flex-grow: 1;
+    }
+</style>
+
+<div class="modal animated zoomIn" id="popup" tabindex="-1" role="dialog">
+    <form id="popupForm" asp-controller="Appointment" asp-action="Save" method="post">
+        <div class="modal-dialog dialog-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title" id="popupHeader">Add Appointment</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="form-container">
+                            <div class="form-left">
+                               
+                                <input id="id" type="hidden" class="form-control" asp-for="Id">
+                                <input id="patientId" type="hidden" class="form-control" asp-for="PatientId">
+                                
+                                <div class="from-group-inline">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="form-label">First Name</label>
+                                        <input id="firstName" type="text" class="form-control" asp-for="Patient!.FirstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="LastName" class="form-label">Last Name</label>
+                                        <input id="lastName" type="text" class="form-control" asp-for="Patient!.LastName" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email" class="form-label">Email</label>
+                                    <input id="email" type="email" class="form-control" asp-for="Patient!.Email" placeholder="Email" required>
+                                </div>
+                                <div class="from-group-inline">
+                                    <div class="form-group">
+                                        <label for="MobileNo" class="form-label">Mobile Number</label>
+                                        <input id="mobileNumber" type="tel" class="form-control" asp-for="Patient!.MobileNo" placeholder="Mobile Number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="EmergencyContact" class="form-label">Emergency Contact</label>
+                                        <input id="emergencyContact" type="text" class="form-control" asp-for="Patient!.EmergencyContact" placeholder="Emergency Contact" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Address" class="form-label">Address</label>
+                                    <input id="address" type="text" class="form-control" asp-for="Patient!.Address" placeholder="Address">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Illness" class="form-label">Illness</label>
+                                    <input id="illness" type="text" class="form-control" asp-for="Patient!.Illness" placeholder="Illness">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Alergies" class="form-label">Alergies</label>
+                                    <input id="alergies" type="text" class="form-control" asp-for="Patient!.Alergies" placeholder="Alergies">
+                                </div>
+                            </div>
+                            <div class="form-right">
+
+
+                                <div class="form-group">
+                                    <label for="DateTime" class="form-label">Appointment Date Time</label>
+                                    <input id="dateTime" type="datetime-local" class="form-control" asp-for="DateTime" placeholder="Appointment Date Time">
+                                </div>
+                                <div class="form-group">
+                                    <input id="id" type="hidden" class="form-control" asp-for="Id">
+                                    <input id="patientId" type="hidden" class="form-control" asp-for="PatientId">
+                                </div>
+                                <div class="form-group">
+                                    <label for="DoctorId" class="form-label">Doctor</label>
+                                    @* <input id="doctorId" type="text" class="form-control" asp-for="DoctorId" placeholder="Doctor" required> *@
+                                    <select class="form-select" asp-for="DoctorId">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var el in Model!.Doctors!)
+                                        {
+                                            <option value="@el.GetId()">@el.GetFirstName() @el.GetLastName()</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TreatmentTypeId" class="form-label">Treatment Type</label>
+                                    <select class="form-select" asp-for="TreatmentTypeId">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var el in Model!.Treatments!)
+                                        {
+                                            <option value="@el.GetId()">@el.GetName()</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="IsAdvancePaid" class="form-label">Is Advance Paid?</label>
+                                    <input id="isAdvancePaid" asp-for="IsAdvancePaid" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="IsConfirmed" class="form-label">Is user Confirmed?</label>
+                                    <input id="isConfirmed" asp-for="IsConfirmed" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="IsComplete" class="form-label">Is Order Complete?</label>
+                                    <input id="isComplete" asp-for="IsComplete" />
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnSave" class="save-btn-container">
+                        <input class="submit-btn" type="submit" value="Save" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hidePopup()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal animated zoomIn" id="popupEdit" tabindex="-1" role="dialog">
+    <form id="popupFormEdit" asp-controller="Appointment" asp-action="Update" method="post">
+        <div class="modal-dialog dialog-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title" id="popupHeader">Edit Appointment</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="form-container">
+                            <div class="form-left">
+
+                                <input id="idEdit" type="hidden" class="form-control" asp-for="Id">
+                                <input id="patientIdEdit" type="hidden" class="form-control" asp-for="PatientId">
+
+                                <div class="from-group-inline">
+                                    <div class="form-group">
+                                        <label for="FirstName" class="form-label">First Name</label>
+                                        <input id="firstNameEdit" type="text" class="form-control" asp-for="Patient!.FirstName" placeholder="First Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="LastName" class="form-label">Last Name</label>
+                                        <input id="lastNameEdit" type="text" class="form-control" asp-for="Patient!.LastName" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email" class="form-label">Email</label>
+                                    <input id="emailEdit" type="email" class="form-control" asp-for="Patient!.Email" placeholder="Email" required>
+                                </div>
+                                <div class="from-group-inline">
+                                    <div class="form-group">
+                                        <label for="MobileNo" class="form-label">Mobile Number</label>
+                                        <input id="mobileNumberEdit" type="tel" class="form-control" asp-for="Patient!.MobileNo" placeholder="Mobile Number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="EmergencyContact" class="form-label">Emergency Contact</label>
+                                        <input id="emergencyContactEdit" type="text" class="form-control" asp-for="Patient!.EmergencyContact" placeholder="Emergency Contact" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Address" class="form-label">Address</label>
+                                    <input id="addressEdit" type="text" class="form-control" asp-for="Patient!.Address" placeholder="Address">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Illness" class="form-label">Illness</label>
+                                    <input id="illnessEdit" type="text" class="form-control" asp-for="Patient!.Illness" placeholder="Illness">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Alergies" class="form-label">Alergies</label>
+                                    <input id="alergiesEdit" type="text" class="form-control" asp-for="Patient!.Alergies" placeholder="Alergies">
+                                </div>
+                            </div>
+                            <div class="form-right">
+
+                                <div class="form-group">
+                                    <label for="DateTime" class="form-label">Appointment Date Time</label>
+                                    <input id="dateTimeEdit" type="datetime-local" class="form-control" asp-for="DateTime" placeholder="Appointment Date Time">
+                                </div>
+                                <div class="form-group">
+                                    <input id="id" type="hidden" class="form-control" asp-for="Id">
+                                    <input id="patientIdEdit" type="hidden" class="form-control" asp-for="PatientId">
+                                </div>
+                                <div class="form-group">
+                                    <label for="DoctorId" class="form-label">Doctor</label>
+                                    @* <input id="doctorId" type="text" class="form-control" asp-for="DoctorId" placeholder="Doctor" required> *@
+                                    <select id="doctorEdit" class="form-select" asp-for="DoctorId">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var el in Model!.Doctors!)
+                                        {
+                                            <option value="@el.GetId()">@el.GetFirstName() @el.GetLastName()</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TreatmentTypeId" class="form-label">Treatment Type</label>
+                                    <select id="treatmentTypeEdit" class="form-select" asp-for="TreatmentTypeId">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var el in Model!.Treatments!)
+                                        {
+                                            <option value="@el.GetId()">@el.GetName()</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="IsConfirmed" class="form-label">Is user Confirmed?</label>
+                                    <input id="isConfirmedEdit" asp-for="IsConfirmed" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="IsComplete" class="form-label">Is Order Complete?</label>
+                                    <input id="isCompleteEdit" asp-for="IsComplete" />
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnSave" class="save-btn-container">
+                        <input class="submit-btn" type="submit" value="Save" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideEditPopup()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@* <div class="modal animated zoomIn" id="popupEdit" tabindex="-1" role="dialog">
+    <form id="popupFormEdit" asp-controller="Doctor" asp-action="Update" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title" id="popupHeader">Edit Doctor</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="idEdit" type="hidden" class="form-control" asp-for="Id">
+                            </div>
+                            <div class="form-group">
+                                <label for="RegistrationNumber" class="form-label">Registration Number</label>
+                                <input id="registrationNumberEdit" type="text" class="form-control" asp-for="RegistrationNumber" placeholder="Registration Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="FirstName" class="form-label">First Name</label>
+                                <input id="firstNameEdit" type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="LastName" class="form-label">Last Name</label>
+                                <input id="lastNameEdit" type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="Email" class="form-label">Email</label>
+                                <input id="emailEdit" type="email" class="form-control" asp-for="Email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="MobileNo" class="form-label">Mobile Number</label>
+                                <input id="mobileNumberEdit" type="tel" class="form-control" asp-for="MobileNo" placeholder="Mobile Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="Address" class="form-label">Address</label>
+                                <input id="addressEdit" type="text" class="form-control" asp-for="Address" placeholder="Address">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnSave" class="save-btn-container">
+                        <input class="submit-btn" type="submit" value="Save" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideEditPopup()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+ *@

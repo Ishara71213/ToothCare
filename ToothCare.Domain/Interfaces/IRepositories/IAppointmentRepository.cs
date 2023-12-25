@@ -2,7 +2,8 @@
 
 namespace ToothCare.Domain.Interfaces.IRepositories
 {
-    public interface IPatientRepository : IGenericRepository<Patient> 
+    public interface IAppointmentRepository : IGenericRepository<Appointment> 
     {
+        
     }
 }

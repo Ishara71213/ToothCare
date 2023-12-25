@@ -12,33 +12,37 @@ namespace ToothCare.Domain.Entities
         private int appointmentId;
         public double advance;
         public double total;
+        public bool isPaid;
 
         public Payment() { }
 
         //Constructors internal because object creation is centerlized into the Builders
         // these constructors will not be used in other Assemblies
-        internal Payment(int appointmentId, double advance, double total)
+        internal Payment(int appointmentId, double advance, double total, bool isPaid)
             : base()
         {
             this.appointmentId = appointmentId;
             this.advance = advance;
             this.total = total;
+            this.isPaid = isPaid;
         }
 
-        internal Payment(int id, int appointmentId, double advance, double total)
+        internal Payment(int id, int appointmentId, double advance, double total, bool isPaid)
             : base(id)
         {
             this.appointmentId = appointmentId;
             this.advance = advance;
             this.total = total;
+            this.isPaid = isPaid;
         }
 
-        internal Payment(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, int appointmentId, double advance, double total)
+        internal Payment(int id, DateTime? createdOn, int? createdBy, DateTime? modifiedOn, int? modifiedBy, int appointmentId, double advance, double total, bool isPaid)
             : base(id,createdOn, createdBy, modifiedBy,  modifiedOn)
         {
             this.appointmentId = appointmentId;
             this.advance = advance;
             this.total = total;
+            this.isPaid = isPaid;
         }
 
         public int GetAppointmentId()
@@ -71,11 +75,21 @@ namespace ToothCare.Domain.Entities
             this.total = total;
         }
 
+        public double GetIsPaid()
+        {
+            return this.total;
+        }
+
+        public void SetIsPaid(double total)
+        {
+            this.total = total;
+        }
+
         //overides the to string and generate string as json format
         public override string ToString()
         {
             string resultBase = $"\"id\":\"{this.id}\", \"createdOn\":\"{this.createdOn}\", \"createdBy\":\"{this.createdBy}\", \"modifiedOn\":\"{this.modifiedOn}\", \"modifiedBy\":\"{this.modifiedBy}\", ";
-            string resultAppointmnet = $"\"appointmentId\":\"{this.appointmentId}\", \"advance\":\"{this.advance}\", \"total\":\"{this.total}\"";
+            string resultAppointmnet = $"\"appointmentId\":\"{this.appointmentId}\", \"advance\":\"{this.advance}\", \"total\":\"{this.total}\", \"isPaid\":\"{this.isPaid}\"";
            
             string result = "{" + resultBase + resultAppointmnet + "}";
             return result;
@@ -100,12 +114,14 @@ namespace ToothCare.Domain.Entities
             int appointmentId = jsonData.appointmentId != "" ? jsonData.appointmentId : 0;
             double advance = jsonData.advance != "" ? jsonData.advance : 0;
             double total = jsonData.total != "" ? jsonData.total : 0;
+            bool isPaid = jsonData.isPaid != "" ? jsonData.isPaid : false;
 
             PaymentBuilder builder = new PaymentBuilder();
             
             builder.SetAppointmentId(appointmentId);
             builder.SetAdvance(advance);
             builder.SetTotal(total);
+            builder.SetIsPaid(isPaid);
 
             builder.SetId(id);
             builder.SetCreatedOn(createdOn);

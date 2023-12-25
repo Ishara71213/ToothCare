@@ -16,6 +16,10 @@ namespace ToothCare.Domain.Builders
 
         private int duration;
 
+        private bool isConfirmed;
+
+        private bool isComplete;
+
         private DateTime dateTime;
 
         public AppointmentBuilder() { }
@@ -29,7 +33,7 @@ namespace ToothCare.Domain.Builders
 
         public override Appointment Build()
         {
-            return new Appointment( id, createdOn, createdBy, modifiedOn, modifiedBy, patientId, patientName, doctorId, treatmentTypeId, paymentId, duration, dateTime);
+            return new Appointment( id, createdOn, createdBy, modifiedOn, modifiedBy, patientId, patientName, doctorId, treatmentTypeId, paymentId, duration, dateTime, isConfirmed, isComplete);
         }
 
         public AppointmentBuilder SetPatientId(int patientId)
@@ -76,6 +80,16 @@ namespace ToothCare.Domain.Builders
         {
             this.dateTime = dateTime;
             return this;
+        }
+
+        public void SetIsConfirmed(bool isConfirmed)
+        {
+            this.isConfirmed = isConfirmed;
+        }
+
+        public void SetIsComplete(bool isComplete)
+        {
+            this.isComplete = isComplete;
         }
     }
 }

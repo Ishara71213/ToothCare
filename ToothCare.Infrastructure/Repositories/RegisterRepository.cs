@@ -28,8 +28,8 @@ namespace ToothCare.Infrastructure.Repositories
                 }
             }
 
-            bool result = await _dbContext.WriteToFile<Staff>(DbFileNames.Staff, user);
-            if (!result) throw new Exception("Something Went Wrong");
+            Staff? result = await _dbContext.WriteToFile<Staff>(DbFileNames.Staff, user);
+            if (result == null) throw new Exception("Something Went Wrong");
             return user;
         }
 

@@ -13,9 +13,9 @@ namespace ToothCare.Application.Services
             _patientRepository = patientRepository;
         }
 
-        public async Task AddAsync(Patient entity)
+        public async Task<Patient?> AddAsync(Patient entity)
         {
-            await _patientRepository.AddAsync(entity);
+            return await _patientRepository.AddAsync(entity);
         }
 
         public async Task DeleteAsync(int id)
@@ -31,6 +31,13 @@ namespace ToothCare.Application.Services
         public async Task<Patient?> GetByIdAsync(int id)
         {
            return await _patientRepository.GetByIdAsync(id);
+        }
+
+        public async Task<Patient?> GetByEmailAsync(string email)
+        {
+            CustomLinkedList<Patient> patient= await _patientRepository.GetAllAsync();
+            Patient? result =patient.Where(e=>e.GetEmail()==email).FirstOrDefault();
+            return result;
         }
 
         public async Task UpdateAsync(Patient entity)

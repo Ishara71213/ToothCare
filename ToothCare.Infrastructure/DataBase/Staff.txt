@@ -1,1 +1,1 @@
-{"id":"1", "createdOn":"", "createdBy":"", "modifiedOn":"", "modifiedBy":"", "firstName":"H A M", "lastName":"asdas", "email":"test@gmail.com", "encryptedPassword":"asd", "mobileNo":"asd", "address":"asdas", "designation":"Receptionist"}
+{"id":"1", "createdOn":"12/25/2023 10:48:42 PM", "createdBy":"", "modifiedOn":"", "modifiedBy":"", "firstName":"H A M", "lastName":"Ishara", "email":"toothcare@gmail.com", "encryptedPassword":"asd", "mobileNo":"12312", "address":"Nugegoda, Colombo", "designation":"Receptionist"}

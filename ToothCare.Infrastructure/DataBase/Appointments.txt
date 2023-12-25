@@ -1,0 +1,1 @@
+{"id":"1", "createdOn":"12/26/2023 2:22:17 AM", "createdBy":"", "modifiedOn":"12/26/2023 2:22:17 AM", "modifiedBy":"1", "patientId":"1", "patientName":"", "doctorId":"2", "treatmentTypeId":"3", "paymentId":"0", "duration":"0", "dateTime":"12/6/2023 2:22:00 AM", "isConfirmed":"False", "isComplete":"False"}

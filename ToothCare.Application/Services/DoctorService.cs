@@ -13,9 +13,9 @@ namespace ToothCare.Application.Services
             _doctorRepository = doctorRepository;
         }
 
-        public async Task AddAsync(Doctor entity)
+        public async Task<Doctor?> AddAsync(Doctor entity)
         {
-            await _doctorRepository.AddAsync(entity);
+            return await _doctorRepository.AddAsync(entity);
         }
 
         public async Task DeleteAsync(int id)

@@ -18,9 +18,10 @@ namespace ToothCare.Application.Services
             _treatmentRepository = treatmentRepository;
         }
 
-        public async Task AddAsync(Treatment entity)
+        public async Task<Treatment?> AddAsync(Treatment entity)
         {
-            await _treatmentRepository.AddAsync(entity);
+            Treatment? result=await _treatmentRepository.AddAsync(entity);
+            return result;
         }
 
         public async Task DeleteAsync(int id)

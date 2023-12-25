@@ -7,27 +7,30 @@ namespace ToothCare.Domain.Builders
         private int appointmentId;
         private double advance;
         private double total;
+        private bool isPaid;
 
         public PaymentBuilder() { }
-        public PaymentBuilder(int appointmentId, double advance, double total)
+        public PaymentBuilder(int appointmentId, double advance, double total, bool isPaid)
             : base()
         {
             this.appointmentId = appointmentId;
             this.advance = advance;
             this.total = total;
+            this.isPaid = isPaid;
         }
 
-        public PaymentBuilder(int id, int appointmentId, double advance, double total)
+        public PaymentBuilder(int id, int appointmentId, double advance, double total, bool isPaid)
             : base(id)
         {
             this.appointmentId = appointmentId;
             this.advance = advance;
             this.total = total;
+            this.isPaid = isPaid;
         }
 
         public override Payment Build()
         {
-            return new Payment(id, createdOn,  createdBy,  modifiedOn, modifiedBy, appointmentId, advance, total);
+            return new Payment(id, createdOn,  createdBy,  modifiedOn, modifiedBy, appointmentId, advance, total, isPaid);
         }
 
         public PaymentBuilder SetAppointmentId(int appointmentId)
@@ -45,6 +48,12 @@ namespace ToothCare.Domain.Builders
         public PaymentBuilder SetTotal(double total)
         {
             this.total = total;
+            return this;
+        }
+
+        public PaymentBuilder SetIsPaid(bool isPaid)
+        {
+            this.isPaid = isPaid;
             return this;
         }
     }
