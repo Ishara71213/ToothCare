@@ -10,6 +10,9 @@ namespace ToothCare.Domain.Constatnts
     {
         public static string Staff = "Staff";
         public static string Treatments = "Treatments";
-
+        public static string Patients = "Patients";
+        public static string Doctors = "Doctors";
+        public static string Appointments = "Appointments";
+        public static string Payments = "Payments";
     }
 }

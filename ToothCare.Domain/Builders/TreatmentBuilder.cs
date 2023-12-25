@@ -1,8 +1,4 @@
-﻿
-
-using System.Net;
-using ToothCare.Domain.Constatnts;
-using ToothCare.Domain.Entities;
+﻿using ToothCare.Domain.Entities;
 
 namespace ToothCare.Domain.Builders
 {

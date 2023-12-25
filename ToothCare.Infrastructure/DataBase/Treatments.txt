@@ -1,1 +1,1 @@
-{"id":"1", "createdOn":"12/25/2023 12:14:14 AM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Cleanings", "price":"21", "averageMinutesPerSession":"12"}
+{"id":"1", "createdOn":"12/25/2023 4:52:32 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "name":"Cleanings", "price":"45", "averageMinutesPerSession":"45"}

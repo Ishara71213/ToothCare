@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using ToothCare.Domain.Builders;
 using ToothCare.Domain.Interfaces.Common;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ToothCare.Domain.Entities
 {
@@ -17,7 +16,7 @@ namespace ToothCare.Domain.Entities
         public Treatment() { }
 
         //Constructors internal because object creation is centerlized into the Builders
-        // these constructors will not be used other Assemblies
+        // these constructors will not be used in other Assemblies
         internal Treatment(string name, double price, int averageMinutesPerSession)
             : base()
         {

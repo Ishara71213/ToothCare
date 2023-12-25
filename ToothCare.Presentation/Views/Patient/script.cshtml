@@ -1,0 +1,58 @@
+﻿<script>
+
+    function preAdd() {
+        $("#id").val('');
+        $("#registrationNumber").val('');
+        $("#firstName").val('');
+        $("#lastName").val('');
+        $("#email").val('');
+        $("#mobileNumber").val('');
+        $("#address").val('');
+        $("#illness").val('');
+        $("#alergies").val('');
+        $("#emergencyContact").val('');
+        $('#popup').modal('show');
+    }
+
+    // use to hide popup
+    function hidePopup() {
+        $('#popup').modal('hide');
+    }
+
+    function preEdit(model) {
+        $("#idEdit").val(model.id);
+        $("#registrationNumberEdit").val(model.registrationNumber);
+        $("#firstNameEdit").val(model.firstName);
+        $("#lastNameEdit").val(model.lastName);
+        $("#emailEdit").val(model.email);
+        $("#mobileNumberEdit").val(model.mobileNo);
+        $("#addressEdit").val(model.address);
+        $("#illnessEdit").val(model.illness);
+        $("#alergiesEdit").val(model.alergies);
+        $("#emergencyContactEdit").val(model.emergencyContact);
+        $('#popupEdit').modal('show');
+    }
+
+    // use to hide edit popup
+    function hideEditPopup() {
+        $('#popupEdit').modal('hide');
+    }
+
+
+    function deleteRecord(id) {
+        var url = '@Url.Content("~/")' + "Patient/Delete/"+id; 
+        console.log(url);
+        $.post(url, { "Id": id }, function (data) {
+            if (data) {
+                console.log("Deleted succesfully");
+                location.reload();
+            } else {
+                console.log("Deleted failed");
+                location.reload();
+            }
+        });
+    }
+
+
+
+</script>

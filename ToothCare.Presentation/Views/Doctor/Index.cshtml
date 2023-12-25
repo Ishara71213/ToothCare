@@ -1,7 +1,7 @@
 ﻿@using ToothCare.Domain.Entities;
-@model TreatmentViewModel
+@model DoctorViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Doctors";
     ViewData["User"] = Model.User;
     ViewData["UserName"] = Model?.User?.GetFirstName() + " " + Model?.User?.GetLastName();
     ViewData["UserDesignation"] = Model?.User?.GetDesignation();
@@ -12,7 +12,7 @@
     <div class="top-section">
         <div class="col-lg-6 col-md-8 col-sm-12">
             <h2 class="breadcrumb-header">
-                Treatment
+                Doctors
             </h2>
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -20,7 +20,7 @@
                         <img src="~/assets/icons/home.png" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
                     </a>
                 </li>
-                <li class="breadcrumb-item">Treatment</li>
+                <li class="breadcrumb-item">Doctors</li>
             </ul>
         </div>
         <div class="add-button-container">
@@ -29,58 +29,52 @@
             </a>
         </div>
     </div>
-   @*  <div class="add-data-section" id="addDataSection">
-        <form asp-controller="Treatment" asp-action="Save" method="post">
-            <div class="from-group-inline">
-                <div class="form-group">
-                    <label for="TreatmentName" class="form-label">Treatment Name</label>
-                    <input type="text" class="form-control" asp-for="Name" placeholder="Treatment Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="TreatmentPrice" class="form-label">Treatment Price</label>
-                    <input type="text" class="form-control" asp-for="Price" placeholder="Treatment Price" required>
-                </div>
-                <div class="form-group">
-                    <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
-                    <input type="number" class="form-control" asp-for="AvarageMinutesPerSession" placeholder="Average Time" required>
-                </div>
-            </div>
-            <div class="search-btn-container">
-                <input class="search-btn" type="submit" value="Search" />
-            </div>
-        </form>
-    </div> *@
     <div class="table-outer-container">
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>
-                            Treatment Name
+                            Reg No
                         </th>
                         <th>
-                            Treatment Price
+                            Name
                         </th>
                         <th>
-                            Average Time
+                            Email
                         </th>
                         <th>
-                            Action
+                            Mobile No
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Actions
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var b in Model!.AllList!)
-                    {
+                    {  var regNo = b.GetRegistrationNumber();
+                       var email = b.GetEmail();
+                       var mobileNo = b.GetMobileNo();
+                       var address = b.GetAddress();
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => b.name)
+                                @Html.DisplayFor(modelItem => regNo)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => b.price).00
+                                @Html.DisplayFor(modelItem => b.firstName) @Html.DisplayFor(modelItem => b.lastName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => b.averageMinutesPerSession)
+                                @Html.DisplayFor(modelItem => email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => mobileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => address)
                             </td>
                             <td>
                                 <div class="action-button-container">
@@ -105,6 +99,6 @@
 </div>
 
 @section Scripts{
-    @await Html.PartialAsync("~/Views/Treatment/Script.cshtml")
+    @await Html.PartialAsync("~/Views/Doctor/Script.cshtml")
 }
-@await Html.PartialAsync("~/Views/Treatment/Save.cshtml")
+@await Html.PartialAsync("~/Views/Doctor/Save.cshtml")

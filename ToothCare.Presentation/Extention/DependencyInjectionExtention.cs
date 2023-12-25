@@ -20,11 +20,15 @@ namespace ToothCare.Presentation.Extention
             services.RegisterTransient<IRegisterRepository,RegisterRepository>();
             services.RegisterSingleton<IAuthRepository,AuthRepository>();
             services.RegisterSingleton<ITreatmentRepository,TreatmentRepository>();
+            services.RegisterSingleton<IDoctorRepository, DoctorRepository>();
+            services.RegisterSingleton<IPatientRepository, PatientRepository>();
 
             //Register Services
             services.RegisterTransient<IRegisterService, RegisterService>();
             services.RegisterSingleton<IAuthService, AuthService>();
             services.RegisterSingleton<ITreatmentService, TreatmentService>();
+            services.RegisterSingleton<IDoctorService, DoctorService>();
+            services.RegisterSingleton<IPatientService, PatientService>();
 
             //Register Controllers
             services.RegisterTransient<HomeController>();
@@ -32,6 +36,8 @@ namespace ToothCare.Presentation.Extention
             services.RegisterTransient<SignInController>();
             services.RegisterTransient<UserSessionController>();
             services.RegisterTransient<TreatmentController>();
+            services.RegisterTransient<DoctorController>();
+            services.RegisterTransient<PatientController>();
 
             return services;
         }

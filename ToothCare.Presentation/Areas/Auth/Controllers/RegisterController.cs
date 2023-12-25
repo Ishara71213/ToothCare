@@ -43,7 +43,6 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
         {
             try
             {
-               // var model = new Staff(registerData.FirstName, registerData.LastName, registerData.Email, registerData.Password, registerData.MobileNo, registerData.Address, Designations.Receptionist);
                 StaffBuilder staffBuilder = new StaffBuilder();
                 staffBuilder.SetFirstName(registerData.FirstName);
                 staffBuilder.SetLastName(registerData.LastName);

@@ -1,0 +1,2 @@
+{"id":"1", "createdOn":"12/25/2023 5:32:51 PM", "createdBy":"", "modifiedOn":"12/25/2023 5:32:51 PM", "modifiedBy":"1", "firstName":"asd", "lastName":"asdas", "email":"test@gmail.com", "encryptedPassword":"", "mobileNo":"12312", "address":"Nugegoda, Colombo", "registrationNumber":"132"}
+{"id":"2", "createdOn":"12/25/2023 5:43:13 PM", "createdBy":"1", "modifiedOn":"", "modifiedBy":"", "firstName":"H A M", "lastName":"asdas", "email":"test@gmail.com", "encryptedPassword":"", "mobileNo":"12312", "address":"Nugegoda, Colombo", "registrationNumber":"132"}

@@ -1,20 +1,20 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -29,4 +29,129 @@ ul {
 
 li {
     list-style: none;
+}
+
+/*custom sroll bar styles*/
+/* width and height*/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #dfdfdf;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #c3c3c3;
+    border-radius: 20px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a6a6a6;
+    }
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.breadcrumb-header {
+    font-size: 24px;
+}
+
+.breadcrumb-item {
+    color: #7f8490;
+}
+
+.add-button-container {
+}
+
+.add-data-section {
+    margin-top: 20px;
+}
+
+.from-group-inline {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.search-btn-container {
+    display: flex;
+    justify-content: right;
+}
+
+.search-btn {
+    margin: 20px 0;
+    padding: 0 18px;
+    height: 36px;
+    color: white;
+    background-color: #2b7ae6;
+    border-radius: 4px;
+    border: none;
+}
+
+.submit-btn {
+    padding: 0 18px;
+    height: 36px;
+    color: white;
+    background-color: #2b7ae6;
+    border-radius: 4px;
+    border: none;
+}
+
+.save-btn-container {
+    display: flex;
+    justify-content: right;
+}
+
+.table-outer-container {
+    height: 57vh;
+    margin: 25px 0;
+    overflow: scroll;
+    -webkit-box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+    box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+}
+
+.table-container {
+    border-collapse: collapse;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+    .table-container table {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .table-container thead {
+        background-color: #5b6e88;
+        color: #e7e9ed;
+        height: 40px;
+    }
+
+    .table-container th, .table-container td {
+        padding: 10px 15px;
+    }
+
+    .table-container tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+        .table-container tbody tr:nth-of-type(even) {
+            background-color: #e1e6f3;
+        }
+
+.action-button-container {
+    display: flex;
+}
+
+
+.form-group {
+    margin-top: 16px;
 }

@@ -1,12 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Reflection;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using ToothCare.Domain.Builders;
 using ToothCare.Domain.Interfaces.Common;
 
@@ -19,7 +11,7 @@ namespace ToothCare.Domain.Entities
         public Staff() { }
 
         //Constructors internal because object creation is centerlized into the Builders
-        // these constructors will not be used other Assemblies
+        // these constructors will not be used in other Assemblies
         internal Staff(string firstName, string lastName, string email, string encryptedPassword, string mobileNo, string address, string designation)
             : base( firstName, lastName, email, encryptedPassword, mobileNo, address)
         {
