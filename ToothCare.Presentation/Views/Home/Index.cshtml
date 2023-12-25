@@ -3,16 +3,16 @@
 @{
     ViewData["Title"] = "Home Page";
     ViewData["User"] = Model.User;
-    ViewData["UserName"] = Model.User.FirstName + " " + Model.User.LastName;
-    ViewData["UserDesignation"] = Model.User.Designation;
+    ViewData["UserName"] = Model?.User?.GetFirstName() + " " + Model?.User?.GetLastName();
+    ViewData["UserDesignation"] = Model?.User?.GetDesignation();
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 
-    <h1>Email: @Model.User.Email</h1>
-    <p>First Name:@Model.User.FirstName</p>
-    <p>Last Name: @Model.User.LastName</p>
+    <h1>Email: @Model?.User?.GetEmail()</h1>
+    <p>First Name:@Model?.User?.GetFirstName()</p>
+    <p>Last Name: @Model?.User?.GetLastName()</p>
 
 </div>

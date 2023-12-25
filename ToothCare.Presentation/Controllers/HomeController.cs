@@ -19,15 +19,8 @@ namespace ToothCare.Presentation.Controllers
         public IActionResult Index()
         {
 
-            /*
-                        var model = new GuidDataViewModel
-                        {
-                            Guid = newGuid,
-                            Timestamp = DateTime.UtcNow,
-                            Message = "Hello, world!"
-                        };*/
             HomeViewModel model =new HomeViewModel();
-            model.User = new Staff();
+            
             var user = _authService.GetCurrentUser();
             if (user != null)
             {

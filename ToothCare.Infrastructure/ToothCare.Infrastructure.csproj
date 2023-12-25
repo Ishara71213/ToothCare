@@ -14,8 +14,4 @@
     <ProjectReference Include="..\ToothCare.Domain\ToothCare.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataBase\" />
-  </ItemGroup>
-
 </Project>

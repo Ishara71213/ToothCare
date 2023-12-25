@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ToothCare.Domain.Entities
 {
-    public class Patient : User
+    public class Patient 
     {
         public string Illness { get; set; } = null!;
         public string Alergies { get; set; } = null!;

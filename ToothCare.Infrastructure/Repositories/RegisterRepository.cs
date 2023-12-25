@@ -20,11 +20,10 @@ namespace ToothCare.Infrastructure.Repositories
 
             if (staffList != null )
             {
-                entity = staffList.Where((e)=> e.Email == user.Email).GetFirst();
+                entity = staffList.Where((e)=> e.GetEmail() == user.GetEmail()).GetFirst();
                 
                 if (entity != null )
-                { 
-                    user.IsExist = true;
+                {
                     return user;
                 }
             }
@@ -40,13 +39,13 @@ namespace ToothCare.Infrastructure.Repositories
             
             if (staffList == null) return true;
 
-            Staff? search=  staffList!.Where(x=>x.MobileNo==user.MobileNo || x.Email == user.Email).FirstOrDefault();
+            Staff? search=  staffList!.Where(x=>x.GetMobileNo()==user.GetMobileNo() || x.GetEmail() == user.GetEmail()).FirstOrDefault();
 
             if (search != null)
             {
-                if (search.MobileNo == user.MobileNo) throw new Exception("Mobile No Already Exist");
+                if (search.GetMobileNo() == user.GetMobileNo()) throw new Exception("Mobile No Already Exist");
 
-                if (search.Email == user.Email) throw new Exception("Email Already Exist");
+                if (search.GetEmail() == user.GetEmail()) throw new Exception("Email Already Exist");
             }
             return true;
 

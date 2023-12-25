@@ -1,11 +1,12 @@
 ﻿using ToothCare.Domain.DataStructures;
 using ToothCare.Domain.Entities;
+using ToothCare.Domain.Interfaces.Common;
 using ToothCare.Domain.Interfaces.IRepositories;
 using ToothCare.Infrastructure.Data;
 
 namespace ECCMS.Infrastructure.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity 
     {
         private readonly DbContext _dbContext;
         private readonly string _dbTable ;
@@ -44,7 +45,7 @@ namespace ECCMS.Infrastructure.Repositories
         async Task IGenericRepository<T>.UpdateAsync(T entity)
         {
             //havue to implement the update method
-            bool result = await _dbContext.WriteToFile<T>(_dbTable, entity);
+            bool result = await _dbContext.UpdateRcordById<T>(_dbTable, entity);
             if (result!)
             {
                 throw new Exception("Failed to write to Data base");

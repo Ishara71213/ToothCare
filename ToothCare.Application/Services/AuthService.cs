@@ -33,7 +33,7 @@ namespace ToothCare.Application.Services
         public async Task<Staff> SignIn(string email, string password)
         {
             CustomLinkedList<Staff> staffUsers = await _authRepository.GetAllAsync();
-            Staff? user = staffUsers.Where((e) => e.Email == email && e.EncryptedPassword == password).GetFirst();
+            Staff? user = staffUsers.Where((e) => e.GetEmail() == email && e.GetEncryptedPassword() == password).GetFirst();
             if (user == null)
             {
                 throw new Exception("No user Found for Given Email password combination");

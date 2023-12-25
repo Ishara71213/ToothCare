@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ToothCare.Domain.Constatnts
 {
-    public static class DbFileNames
+    public static class Designations
     {
-        public static string Staff = "Staff";
-        public static string Treatments = "Treatments";
-
+        public static string Receptionist = "Receptionist";
+        public static string Admin = "Admin";
     }
 }

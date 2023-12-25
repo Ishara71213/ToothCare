@@ -1,0 +1,83 @@
+﻿@using ToothCare.Domain.Entities;
+@model TreatmentViewModel
+
+<div class="modal animated zoomIn" id="popup" tabindex="-1" role="dialog">
+    <form id="popupForm" asp-controller="Treatment" asp-action="Save" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title" id="popupHeader">Add Treatment</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="id" type="hidden" class="form-control" asp-for="Id">
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentName" class="form-label">Treatment Name</label>
+                                <input id="name"  type="text" class="form-control" asp-for="Name" placeholder="Treatment Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentPrice" class="form-label">Treatment Price</label>
+                                <input id="price"  type="number" class="form-control" asp-for="Price" placeholder="Treatment Price" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
+                                <input  id="avgMinutes" type="number" class="form-control" asp-for="AvarageMinutesPerSession" placeholder="Average Time" required>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnSave"  class="save-btn-container">
+                        <input class="submit-btn" type="submit" value="Save" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hidePopup()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="modal animated zoomIn" id="popupEdit" tabindex="-1" role="dialog">
+    <form id="popupEditForm" asp-controller="Treatment" asp-action="Update" method="post">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="title" id="popupEditHeader">Edit Treatment</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="idEdit" type="hidden" class="form-control" asp-for="Id">
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentName" class="form-label">Treatment Name</label>
+                                <input id="nameEdit" type="text" class="form-control" asp-for="Name" placeholder="Treatment Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentPrice" class="form-label">Treatment Price</label>
+                                <input id="priceEdit" type="text" class="form-control" asp-for="Price" placeholder="Treatment Price" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
+                                <input id="avgMinutesEdit" type="number" class="form-control" asp-for="AvarageMinutesPerSession" placeholder="Average Time" required>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="btnEditSave" class="save-btn-container">
+                        <input class="submit-btn" type="submit" value="Update" />
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideEditPopup()">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

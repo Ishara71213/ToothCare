@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToothCare.Domain.Constatnts;
 using ToothCare.Domain.Entities;
 using ToothCare.Domain.Interfaces.IServices;
 using ToothCare.Presentation.Areas.Auth.Models;
@@ -41,19 +42,8 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
         {
             try
             {
-                var model = new Staff
-                {
-                    Id = 1,
-                    FirstName = registerData.FirstName,
-                    LastName = registerData.LastName,
-                    Email = registerData.Email,
-                    Address = registerData.Address,
-                    EncryptedPassword = registerData.Password,
-                    MobileNo = registerData.MobileNo,
-                    CreatedOn = DateTime.Now,
-
-                };
-
+                var model = new Staff(registerData.FirstName, registerData.LastName, registerData.Email, registerData.Password, registerData.MobileNo, registerData.Address, Designations.Receptionist);
+                
                 await _registerService.RegisterUser(model);
                 return RedirectToAction("Index", "SignIn", new { message = "User Created Succesfully" });
             }

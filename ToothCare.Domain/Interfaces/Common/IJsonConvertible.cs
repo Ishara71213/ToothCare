@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToothCare.Domain.Interfaces.IServices
+namespace ToothCare.Domain.Interfaces.Common
 {
-    internal class ISignInService
+    public interface IJsonConvertible<T>
     {
+        T FromJson(string json);
     }
 }

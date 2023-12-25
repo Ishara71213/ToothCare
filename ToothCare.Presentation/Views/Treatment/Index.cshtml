@@ -1,0 +1,232 @@
+﻿@using ToothCare.Domain.Entities;
+@model TreatmentViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["User"] = Model.User;
+    ViewData["UserName"] = Model?.User?.GetFirstName() + " " + Model?.User?.GetLastName();
+    ViewData["UserDesignation"] = Model?.User?.GetDesignation();
+}
+
+<style scoped>
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .breadcrumb-header {
+        font-size: 24px;
+    }
+
+    .breadcrumb-item {
+        color: #7f8490;
+    }
+
+    .add-button-container {
+    }
+
+    .add-data-section {
+        margin-top: 20px;
+    }
+
+    .from-group-inline {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .search-btn-container {
+        display: flex;
+        justify-content: right;
+    }
+
+    .search-btn {
+        margin: 20px 0;
+        padding: 0 18px;
+        height: 36px;
+        color: white;
+        background-color: #2b7ae6;
+        border-radius: 4px;
+        border: none;
+    }
+
+    .submit-btn {
+        padding: 0 18px;
+        height: 36px;
+        color: white;
+        background-color: #2b7ae6;
+        border-radius: 4px;
+        border: none;
+    }
+
+    .save-btn-container {
+        display: flex;
+        justify-content: right;
+    }
+
+    .table-outer-container {
+        height: 57vh;
+        margin: 25px 0;
+        overflow: scroll;
+    }
+
+    .table-container {
+        border-collapse: collapse;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        -webkit-box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+        box-shadow: 0px -1px 14.72px 1.28px rgba(229, 228, 230, 0.5);
+    }
+
+        .table-container table {
+            width: 100%;
+        }
+
+        .table-container thead {
+            background-color: #5b6e88;
+            color: #e7e9ed;
+            height: 40px;
+        }
+
+        .table-container th, .table-container td {
+            padding: 10px 15px;
+        }
+
+        .table-container tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+            .table-container tbody tr:nth-of-type(even) {
+                background-color: #e1e6f3;
+            }
+
+    .action-button-container {
+        display: flex;
+    }
+
+    /*custom sroll bar styles*/
+    /* width and height*/
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #dfdfdf;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #c3c3c3;
+        border-radius: 20px;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a6a6a6;
+        }
+
+    .form-group{
+        margin-top: 16px;
+    }
+</style>
+
+<div class="body-container">
+    <div class="top-section">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <h2 class="breadcrumb-header">
+                Treatment
+            </h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="Home/index">
+                        <img src="~/assets/icons/home.png" height="22" alt="menu icon" class="img-responsive logo" data-toggle="tooltip" data-placement="top" title="Menu">
+                    </a>
+                </li>
+                <li class="breadcrumb-item">Treatment</li>
+            </ul>
+        </div>
+        <div class="add-button-container">
+            <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preAdd()">
+                <img style="width:60px" src="/assets/icons/addNew.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
+            </a>
+        </div>
+    </div>
+   @*  <div class="add-data-section" id="addDataSection">
+        <form asp-controller="Treatment" asp-action="Save" method="post">
+            <div class="from-group-inline">
+                <div class="form-group">
+                    <label for="TreatmentName" class="form-label">Treatment Name</label>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="Treatment Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="TreatmentPrice" class="form-label">Treatment Price</label>
+                    <input type="text" class="form-control" asp-for="Price" placeholder="Treatment Price" required>
+                </div>
+                <div class="form-group">
+                    <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
+                    <input type="number" class="form-control" asp-for="AvarageMinutesPerSession" placeholder="Average Time" required>
+                </div>
+            </div>
+            <div class="search-btn-container">
+                <input class="search-btn" type="submit" value="Search" />
+            </div>
+        </form>
+    </div> *@
+    <div class="table-outer-container">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Treatment Name
+                        </th>
+                        <th>
+                            Treatment Price
+                        </th>
+                        <th>
+                            Average Time
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in Model!.AllList!)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => b.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => b.price).00
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => b.averageMinutesPerSession)
+                            </td>
+                            <td>
+                                <div class="action-button-container">
+                                    <div class="edit-btn">
+                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preEdit(@b)">
+                                            <img style="height:25px" src="/assets/icons/edit.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
+                                        </a>
+                                    </div>
+                                    <div class="delete-btn">
+                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="deleteRecord(@b.GetId())">
+                                            <img style="height:25px" src="/assets/icons/delete.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @await Html.PartialAsync("~/Views/Treatment/Script.cshtml")
+}
+@await Html.PartialAsync("~/Views/Treatment/Save.cshtml")

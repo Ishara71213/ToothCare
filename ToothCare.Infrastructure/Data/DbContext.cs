@@ -2,10 +2,9 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Newtonsoft.Json;
+using System.Text.Json;
 using ToothCare.Domain.DataStructures;
 using ToothCare.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ToothCare.Infrastructure.Data
 {
@@ -19,27 +18,35 @@ namespace ToothCare.Infrastructure.Data
         public async Task<int> getNextId<T>(string fileName) where T : BaseEntity
         {
             CustomLinkedList<T>? dataList =  await GetAllFromFile<T>(fileName);
-            return dataList == null ? 1 : dataList.GetLast()!.Id+=1;
+            int nextId = 1;
+            if (dataList?.Count != 0)
+            {
+                nextId = dataList!.GetLast()!.GetId() + 1;
+            }
+            return nextId;
         }
         
-        public async Task<bool> WriteToFile<T>(string fileName, T model) where T : BaseEntity
+        public async Task<bool> WriteToFile<T>(string fileName, T model) where T : BaseEntity 
         {
             try
             {
                 
+
                 string filePath = _baseFilePath + fileName + ".txt";
                 if (File.Exists(filePath))
                 {
-                    model.Id = await getNextId<T>(fileName);
+                    model.SetId(await getNextId<T>(fileName));
                 }
                 else
                 {
-                    model.Id = 1;
+                    model.SetId(1);
                 }
                 using (StreamWriter writer = new StreamWriter(filePath, true)) 
                 {
-                    string stringData = JsonConvert.SerializeObject(model);
-                    await writer.WriteLineAsync(stringData+",");
+                    //string stringData = JsonSerializer.Serialize(model);
+                    string stringData = model.ToString()!;
+                    await writer.WriteLineAsync(stringData);
+                   // await writer.WriteLineAsync(stringData+",");
                 }
                 return true;
             }catch (Exception ex)
@@ -48,36 +55,33 @@ namespace ToothCare.Infrastructure.Data
             }
         }
 
-        public async Task<CustomLinkedList<T>?> GetAllFromFile<T>(string fileName)
+        public async Task<CustomLinkedList<T>?> GetAllFromFile<T>(string fileName) where T : BaseEntity
         {
-
+            CustomLinkedList<T>? dataList=new();
             string filePath = _baseFilePath + fileName + ".txt";
-            string data = await File.ReadAllTextAsync(filePath);
-            data= "["+data+"]";
-            CustomLinkedList<T>? dataList = JsonConvert.DeserializeObject<CustomLinkedList<T>>(data);
-            int cnt =dataList!.Count;
+            using (StreamReader reader = new StreamReader(filePath, true))
+            {
+                string? line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    T genericObject = (T)Activator.CreateInstance(typeof(T))!;
+                    T element = (T) genericObject.FromJson(line);
+                    if (element.GetId()!= default)
+                    {
+                        dataList.Add(element);
+                    }
+                }
+               
+
+            }
             return dataList;
         }
 
-        /*public async Task<bool> UpdateRcordById<T>(string fileName, T model) where T : BaseEntity
+        public async Task<bool> UpdateRcordById<T>(string fileName, T model) where T : BaseEntity
         {
-            string filePath = _baseFilePath + fileName + ".txt";
-            string data = await File.ReadAllTextAsync(filePath);
-            data = "[" + data + "]";
-            List<T>? dataList = JsonConvert.DeserializeObject<List<T>>(data);
-
-            for (int i; i)
-            {
-
-            }
-
-        }*/
-
-        public async Task<T?> GetRcordById<T>(string fileName, int id)
-        {
-            
-            T? result = default;
-            string query = "\"Id\":" + id.ToString();
+            var lines = new StringBuilder();
+            bool status = false;
+            string query = "\"id\":\"" + model.GetId().ToString();
 
             string filePath = _baseFilePath + fileName + ".txt";
             using (StreamReader reader = new StreamReader(filePath, true))
@@ -87,7 +91,41 @@ namespace ToothCare.Infrastructure.Data
                 {
                     if (line.Contains(query))
                     {
-                        result = JsonConvert.DeserializeObject<T>(line);
+                        lines.AppendLine(model.ToString());
+                        status = true;
+                    }
+                    else lines.AppendLine(line);
+                }
+            }
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.Write(lines.ToString());
+                return status;
+            }
+
+        }
+
+        public async Task<T?> GetRcordById<T>(string fileName, int id) where T : BaseEntity
+        {
+            
+            T? result = default;
+            string query = "\"id\":\"" + id.ToString();
+
+            string filePath = _baseFilePath + fileName + ".txt";
+            using (StreamReader reader = new StreamReader(filePath, true))
+            {
+                string? line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    if (line.Contains(query))
+                    {
+                        T genericObject = (T)Activator.CreateInstance(typeof(T))!;
+                        T element = (T)genericObject.FromJson(line);
+                        if (element.GetId() != default)
+                        {
+                            return element;
+                        }
                     }
                 }
             }
@@ -99,7 +137,7 @@ namespace ToothCare.Infrastructure.Data
         {
             var lines =new StringBuilder();
             bool status = false;
-            string query = "\"Id\":" + id.ToString();
+            string query = "\"id\":\"" + id.ToString();
 
             string filePath = _baseFilePath + fileName + ".txt";
             using (StreamReader reader = new StreamReader(filePath, true)) 

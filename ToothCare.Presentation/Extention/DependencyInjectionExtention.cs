@@ -19,16 +19,19 @@ namespace ToothCare.Presentation.Extention
             //Register Repositories
             services.RegisterTransient<IRegisterRepository,RegisterRepository>();
             services.RegisterSingleton<IAuthRepository,AuthRepository>();
+            services.RegisterSingleton<ITreatmentRepository,TreatmentRepository>();
 
             //Register Services
             services.RegisterTransient<IRegisterService, RegisterService>();
             services.RegisterSingleton<IAuthService, AuthService>();
+            services.RegisterSingleton<ITreatmentService, TreatmentService>();
 
             //Register Controllers
             services.RegisterTransient<HomeController>();
             services.RegisterTransient<RegisterController>();
             services.RegisterTransient<SignInController>();
             services.RegisterTransient<UserSessionController>();
+            services.RegisterTransient<TreatmentController>();
 
             return services;
         }
