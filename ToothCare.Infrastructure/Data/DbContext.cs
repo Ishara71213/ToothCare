@@ -15,6 +15,8 @@ namespace ToothCare.Infrastructure.Data
             string currentDirectory = Directory.GetCurrentDirectory();
             _baseFilePath = currentDirectory.Replace("ToothCare.Presentation", "ToothCare.Infrastructure") + "\\DataBase\\" ;
         }
+
+        //to get the next Id of the data table
         public async Task<int> GetNextId<T>(string fileName) where T : BaseEntity
         {
             CustomLinkedList<T>? dataList =  await GetAllFromFile<T>(fileName);
@@ -26,12 +28,11 @@ namespace ToothCare.Infrastructure.Data
             return nextId;
         }
         
+        //this handdle data writing in to the data base
         public async Task<T?> WriteToFile<T>(string fileName, T model) where T : BaseEntity 
         {
             try
             {
-                
-
                 string filePath = _baseFilePath + fileName + ".txt";
                 if (File.Exists(filePath))
                 {
@@ -43,10 +44,8 @@ namespace ToothCare.Infrastructure.Data
                 }
                 using (StreamWriter writer = new StreamWriter(filePath, true)) 
                 {
-                    //string stringData = JsonSerializer.Serialize(model);
                     string stringData = model.ToString()!;
                     await writer.WriteLineAsync(stringData);
-                   // await writer.WriteLineAsync(stringData+",");
                 }
                 return model;
             }catch (Exception ex)
@@ -55,6 +54,7 @@ namespace ToothCare.Infrastructure.Data
             }
         }
 
+        //to get alldata in to custom linked list
         public async Task<CustomLinkedList<T>?> GetAllFromFile<T>(string fileName) where T : BaseEntity
         {
             CustomLinkedList<T>? dataList=new();
@@ -77,6 +77,7 @@ namespace ToothCare.Infrastructure.Data
             return dataList;
         }
 
+        //to update records
         public async Task<bool> UpdateRcordById<T>(string fileName, T model) where T : BaseEntity
         {
             var lines = new StringBuilder();
@@ -106,6 +107,7 @@ namespace ToothCare.Infrastructure.Data
 
         }
 
+        // to get record by Id
         public async Task<T?> GetRcordById<T>(string fileName, int id) where T : BaseEntity
         {
             
@@ -133,6 +135,7 @@ namespace ToothCare.Infrastructure.Data
 
         }
 
+        //to relete specific record by its id
         public async Task<bool> DeleteRcordById<T>(string fileName, int id)
         {
             var lines =new StringBuilder();

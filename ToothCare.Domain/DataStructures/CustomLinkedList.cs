@@ -141,6 +141,7 @@ namespace ToothCare.Domain.DataStructures
             }
         }
 
+
         public IEnumerator<T> GetEnumerator()
         {
             Node<T>? current = head;

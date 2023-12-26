@@ -7,7 +7,7 @@ namespace ToothCare.Domain.Entities
     // IJsonConvertible responsible to enforce the implement Tostring and From json methods
     public class BaseEntity : IJsonConvertible<BaseEntity>
     {
-        protected int id;
+        public int id;
         protected DateTime? createdOn= DateTime.Now;
         protected int? createdBy;
         protected DateTime? modifiedOn;
