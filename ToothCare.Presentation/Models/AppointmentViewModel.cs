@@ -26,6 +26,13 @@ namespace ToothCare.Presentation.Models
 
         public DateTime DateTime { get; set; }
 
+        //filters to filter the appointment
+        public string? FilterName { get; set; }
+        public int FilterID { get; set; }
+        public DateTime? FilterFromDate { get; set; }
+        public DateTime? FilterToDate { get; set; }
+        public int FilterDoctorId { get; set; }
+
         public PatientViewModel? Patient { get; set; } = new PatientViewModel();
         public PaymentViewModel? Payment { get; set; } = new PaymentViewModel();
         public CustomLinkedList<Doctor>? Doctors { get; set; }

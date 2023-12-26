@@ -15,7 +15,7 @@ namespace ToothCare.Presentation.Extention
 
                 endpoints.MapControllerRoute(
                   name: "default",
-                  pattern: "{controller=Home}/{action=Index}/{id?}");
+                  pattern: "{controller=Appointment}/{action=Index}/{id?}");
             });
             return app;
         }

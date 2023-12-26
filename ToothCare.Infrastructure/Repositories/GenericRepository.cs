@@ -47,7 +47,7 @@ namespace ECCMS.Infrastructure.Repositories
         {
             //havue to implement the update method
             bool result = await _dbContext.UpdateRcordById<T>(_dbTable, entity);
-            if (result!)
+            if (!result)
             {
                 throw new Exception("Failed to write to Data base");
             }

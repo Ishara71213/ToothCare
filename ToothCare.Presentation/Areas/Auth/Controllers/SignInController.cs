@@ -35,7 +35,7 @@ namespace ToothCare.Presentation.Areas.Auth.Controllers
             try
             {
                 await _authService.SignIn(signinData.Email, signinData.Password);
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Appointment", new { area = "" });
                 //return RedirectToAction("Index", new { message = "User Logged In Succesfully" });
             }
             catch (Exception ex)

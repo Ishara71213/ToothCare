@@ -8,6 +8,9 @@
 
 }
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+@* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> *@
 
 <div class="body-container">
     <div class="top-section">
@@ -31,25 +34,46 @@
         </div>
     </div>
 
-     <div class="add-data-section" id="addDataSection">
-        
+    <div class="add-data-section" id="addDataSection">
+        <form id="popupForm" asp-controller="Appointment" asp-action="FilteredView">
             <div class="from-group-inline">
                 <div class="form-group">
-                    <label for="TreatmentName" class="form-label">Treatment Name</label>
-                    <input type="text" class="form-control" placeholder="Treatment Name" required>
+                    <label for="Patient Name" class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" placeholder="Patient Name" asp-for="FilterName" >
                 </div>
                 <div class="form-group">
-                    <label for="TreatmentPrice" class="form-label">Treatment Price</label>
-                    <input type="text" class="form-control"  placeholder="Treatment Price" required>
+                    <label for="AppointmentId" class="form-label">Appointment Id</label>
+                    <input type="text" class="form-control" asp-for="FilterID"  placeholder="Appointment Id" >
                 </div>
                 <div class="form-group">
-                    <label for="TreatmentTime" class="form-label">Average Time (Min)</label>
-                    <input type="number" class="form-control"  placeholder="Average Time" required>
+                    <label for="DoctorId" class="form-label">Doctor</label>
+                    @* <input id="doctorId" type="text" class="form-control" asp-for="DoctorId" placeholder="Doctor" required> *@
+                    <select class="form-select" asp-for="FilterDoctorId" >
+                        <option value="">-- Select --</option>
+                        @foreach (var el in Model!.Doctors!)
+                        {
+                            <option value="@el.GetId()">@el.GetFirstName() @el.GetLastName()</option>
+                        }
+                    </select>
                 </div>
             </div>
-            <div class="search-btn-container">
+            <div class="from-group-inline">
+                <div class="form-group">
+                    <label for="Patient Name" class="form-label">From Date</label>
+                    <input ype="datetime-local" class="form-control" placeholder="From Date" asp-for="FilterFromDate">
+                </div>
+                <div class="form-group">
+                    <label for="AppointmentId" class="form-label">To Date</label>
+                    <input ype="datetime-local" class="form-control" asp-for="FilterToDate" placeholder="To Date" >
+                </div>
+                
+                
+            </div>
+            <div class="search-btn-container mt-3">
                 <input class="search-btn" type="submit" value="Search" />
             </div>
+        </form>
+        
     </div>
     <div class="table-outer-container">
         <div class="table-container">
@@ -89,8 +113,8 @@
                     @foreach (var b in Model!.AllList!)
                     {
                         var id = b.GetId();
-                        var patientName = b!.patient!.GetFirstName() + b!.patient!.GetLastName();
-                        var doctorName = b!.doctor!.GetFirstName() + b!.doctor!.GetLastName();
+                        var patientName = b!.patient!.GetFirstName() + " "+b!.patient!.GetLastName();
+                        var doctorName = b!.doctor!.GetFirstName() + " " + b!.doctor!.GetLastName();
                         var treatmentName = b!.treatment!.GetName();
                         var duration = b.GetDuration();
                         var isConfirmed = b.GetIsConfirmed();
@@ -121,10 +145,11 @@
                                 {
                                     <p class="text-success">Confirmed</p>
                                 }
-                                else{
+                                else
+                                {
                                     <p class="text-danger">Pending</p>
                                 }
-                                    @* @Html.DisplayFor(modelItem => isConfirmed) @Html.DisplayFor(modelItem => isComplete) *@
+                                @* @Html.DisplayFor(modelItem => isConfirmed) @Html.DisplayFor(modelItem => isComplete) *@
                             </td>
                             <td>
                                 @if (isComplete)
@@ -139,13 +164,18 @@
                             <td>
                                 <div class="action-button-container">
                                     <div class="edit-btn">
-                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preEdit(@b, @b!.patient, @b!.doctor, @b!.treatment )">
-                                            <img style="height:25px" src="/assets/icons/edit.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
+                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="preEdit(@b, @b!.patient, @b!.doctor, @b!.treatment)">
+                                            <img style="height:25px" src="/assets/icons/edit.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Edit">
                                         </a>
                                     </div>
                                     <div class="delete-btn">
                                         <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="deleteRecord(@b.GetId())">
-                                            <img style="height:25px" src="/assets/icons/delete.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Add New">
+                                            <img style="height:25px" src="/assets/icons/delete.png" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        </a>
+                                    </div>
+                                    <div class="invoice-btn">
+                                        <a href="javascript:void(0);" class="btn btn-css" data-toggle="modal" onclick="showInvoice(@b, @b!.patient, @b!.doctor, @b!.treatment, @b!.payment)">
+                                            <img style="height:25px" src="/assets/icons/form.svg" alt="buttonpng" border="0" data-toggle="tooltip" data-placement="top" title="Invoice">
                                         </a>
                                     </div>
                                 </div>
@@ -162,3 +192,4 @@
     @await Html.PartialAsync("~/Views/Appointment/Script.cshtml")
 }
 @await Html.PartialAsync("~/Views/Appointment/Save.cshtml")
+@await Html.PartialAsync("~/Views/Appointment/Invoice.cshtml")

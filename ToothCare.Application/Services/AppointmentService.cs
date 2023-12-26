@@ -65,6 +65,7 @@ namespace ToothCare.Application.Services
                 item.patient = await _patientService.GetByIdAsync(item.GetPatientId());
                 item.doctor = await _doctorService.GetByIdAsync(item.GetDoctorId());
                 item.treatment = await _treatmentService.GetByIdAsync(item.GetTreatmentTypeId());
+                item.payment = await _paymentService.GetByIdAsync(item.GetPaymentId());
             }
             return list;
         }
@@ -76,6 +77,39 @@ namespace ToothCare.Application.Services
 
         public async Task UpdateAsync(Appointment entity)
         {
+
+            Patient? patient = await _patientService.GetByIdAsync(entity.GetPatientId());
+            if (patient == null)
+            {
+                patient = await _patientService.AddAsync(entity.patient!);
+
+            }
+            else
+            {
+                patient.SetFirstName(entity.patient!.GetFirstName());
+                patient.SetLastName(entity.patient!.GetFirstName());
+                patient.SetIllness(entity.patient!.GetIllness());
+                patient.SetMobileNo(entity.patient!.GetMobileNo());
+                patient.SetAlergies(entity.patient!.GetAlergies());
+                patient.SetEmergencyContact(entity.patient!.GetemergencyContact());
+                patient.SetModifiedOn(DateTime.Now);
+                await _patientService.UpdateAsync(patient);
+            }
+            Treatment? treatment = await _treatmentService.GetByIdAsync(entity.GetTreatmentTypeId());
+            entity.SetDuration(treatment!.GetAverageMinutesPerSession());
+            entity.SetPatientId(patient!.GetId());
+            
+            
+            Payment? payment = await _paymentService.GetByIdAsync(entity.GetPaymentId());
+            payment!.SetTotal(treatment.GetPrice());
+            if (entity.GetIsComplete())
+            {
+                payment!.isPaid=true;
+            }
+            await _paymentService.UpdateAsync(payment);
+
+            entity.SetPatientName(entity!.patient!.GetFirstName());
+
             await _appointmentRepository.UpdateAsync(entity);
         }
     }

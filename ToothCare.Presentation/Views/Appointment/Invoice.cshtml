@@ -1,0 +1,110 @@
+﻿@using ToothCare.Domain.Entities;
+@model AppointmentViewModel
+
+<style scoped>
+    .invoice-popup .invoice-title {
+        text-align: center;
+
+    }
+
+    .invoice-popup .form-container {
+        display: block;
+    }
+
+    .invoice-popup .dialog-size {
+        width: 700px;
+    }
+
+    .invoice-popup .from-group-inline {
+        width: 100%;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: space-between;
+        color: #495057;
+    }
+</style>
+
+<div class="modal animated zoomIn invoice-popup" id="popupInvoice" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog dialog-size" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title" id="popupHeader">Invoice</h6>
+            </div>
+            <div class="modal-body">
+                <H3 class="invoice-title">Tooth Care Invoice</H3>
+                <div class="row clearfix">
+                    <div class="form-container">
+                       
+                        <input id="id" type="hidden" class="form-control" asp-for="Id">
+                        <input id="patientId" type="hidden" class="form-control" asp-for="PatientId">
+
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Paitent Name</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="paitentName"></h4>
+                            </div>
+                        </div>
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Paitent Address</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="paitentAddress"></h4>
+                            </div>
+                        </div>
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Channeling Date</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="channelingDate"></h4>
+                            </div>
+                        </div>
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Treatment Type</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="treatmentType"></h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Advance Payment</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="advancePayment"></h4>
+                            </div>
+                        </div>
+                        <div class="from-group-inline">
+                            <div class="display-block">
+                                <H4>Balance Payment</H4>
+                            </div>
+                            <div class="display-block">
+                                <h4 id="balancePayment"></h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="from-group-inline">
+                            <div class="display-block text-success">
+                                <H4>Total Payment</H4>
+                            </div>
+                            <div class="display-block text-success">
+                                <h4 id="totalPayment"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="hideInvoicePopup()">CLOSE</button>
+            </div>
+        </div>
+    </div>
+
+</div>

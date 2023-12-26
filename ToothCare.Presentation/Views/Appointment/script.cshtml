@@ -1,5 +1,7 @@
-﻿<script>
-    
+﻿
+
+<script>
+  
     function preAdd() {
         $("#id").val('');
         $("#firstName").val('');
@@ -41,26 +43,51 @@
         $("#alergiesEdit").val(patient.alergies);
         $("#emergencyContactEdit").val(patient.emergencyContact);
 
-        $("#patientIdEdit").val(patient.id);
+        $("#paymentIdEdit").val(model.paymentId);
+        $("#patientIdEdit").val(model.patientId);
         $("#patientNameEdit").val(patient.firstName);
 
         $("#doctorIdEdit").val(doctor.id).trigger('change');
         $("#treatmentTypeIdEdit").val(treatment.id);
+        $("#durationEdit").val(model.duration);
         $("#isConfirmedEdit").val(model.isConfirmed).trigger('change');
-        $("#isCompleteEdit").val('');
+        $("#isCompleteEdit").val(model.isComplete);
         $("#dateTimeEdit").val(model.dateTime).trigger('change');
 
         $('#popupEdit').modal('show');
     }
-
     // use to hide edit popup
     function hideEditPopup() {
         $('#popupEdit').modal('hide');
     }
 
+    function showInvoice(model, patient, doctor, treatment, payment) {
+        console.log(model);
+        console.log(payment);
+
+        $("#paitentName").html(patient.firstName + " " +patient.lastName);
+        $("#paitentAddress").html(patient.address);
+        $("#paitentAddress").html(patient.dateTime);
+        $("#channelingDate").html(model.dateTime);
+        $("#treatmentType").html(treatment.name);
+
+        $("#advancePayment").html(payment.advance + ".00");
+
+        var ballancePayment = payment.total - payment.advance;
+        $("#balancePayment").html(ballancePayment+ ".00");
+        $("#totalPayment").html(payment.total + ".00");
+
+        $('#popupInvoice').modal('show');
+    }
+   
+    // use to hide edit popup
+    function hideInvoicePopup() {
+        $('#popupInvoice').modal('hide');
+    }
+
 
     function deleteRecord(id) {
-        var url = '@Url.Content("~/")' + "Doctor/Delete/"+id; 
+        var url = '@Url.Content("~/")' + "Appointment/Delete/"+id; 
         console.log(url);
         $.post(url, { "Id": id }, function (data) {
             if (data) {
@@ -72,7 +99,6 @@
             }
         });
     }
-
 
 
 </script>
